@@ -37,6 +37,10 @@ namespace UnityStandardAssets._2D
         [SerializeField] public float m_AirDeceleration;
         [SerializeField] public float m_Acceleration;
 
+        [SerializeField] public float m_ChargeSpeed;
+        [SerializeField] public float m_MaxChargeForce;
+        [SerializeField] public GameObject m_ChargeIndicator;
+
         //private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         //const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
         private bool m_Grounded;            // Whether or not the player is grounded.
@@ -54,7 +58,8 @@ namespace UnityStandardAssets._2D
 
         private float m_WallDirection;
         private bool m_IsMoveDisabled = false;
-        private float t;
+
+        private float m_JumpCharge = 0f;
 
 
         private void Awake()
@@ -64,25 +69,15 @@ namespace UnityStandardAssets._2D
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
-        //private void OnCollisionEnter2D(Collision2D collision)
-        //{
-        //    if (collision.gameObject.CompareTag("Wall"))
-        //    {
-
-        //    }
-        //}
-
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.otherCollider == m_feetCollider && collision.gameObject.CompareTag("Ground"))
             {
                 m_Grounded = true;
-                m_JumpCount = 0;
                 m_Anim.SetBool("Ground", m_Grounded);
             }
             else if (collision.otherCollider == m_wallCollider && collision.gameObject.CompareTag("Wall"))
             {
-                m_JumpCount = 0;
                 m_WallDirection = collision.GetContact(0).point.x - transform.position.x;
             }
         }
@@ -101,8 +96,6 @@ namespace UnityStandardAssets._2D
 
         private void FixedUpdate()
         {
-
-            // Set the vertical animation
             m_Anim.SetFloat("vSpeed", m_Rigidbody2D.linearVelocity.y);
             Move(m_MoveDirection);
         }
@@ -123,7 +116,7 @@ namespace UnityStandardAssets._2D
 
                 if (m_Grounded)
                 {
-                    float targetVelocityX = direction * m_MaxSpeed;
+                    float targetVelocityX = direction * m_MaxSpeed * (m_IsCrouching? m_CrouchSpeed : 1);
                     m_Rigidbody2D.linearVelocityX = Mathf.MoveTowards(m_Rigidbody2D.linearVelocityX, targetVelocityX, m_Acceleration * Time.deltaTime);
                 }
                 else
@@ -166,11 +159,15 @@ namespace UnityStandardAssets._2D
 
         public void OnCrouch(InputAction.CallbackContext input)
         {
-            if (m_Grounded)
+            if (input.performed)
             {
-                m_IsCrouching = input.ReadValue<bool>();
-                m_Anim.SetBool("Crouch", input.ReadValue<bool>());
+                m_IsCrouching = true;
             }
+            if (input.canceled)
+            {
+                m_IsCrouching = false;
+            }
+            m_Anim.SetBool("Crouch", m_IsCrouching);
         }
         public void OnJump(InputAction.CallbackContext input)
         {
@@ -178,12 +175,21 @@ namespace UnityStandardAssets._2D
             {
                 if (m_Grounded)
                 {
-                    m_Grounded = false;
-                    m_Anim.SetBool("Ground", false);
-                    m_Rigidbody2D.linearVelocity = new Vector2(m_Rigidbody2D.linearVelocityX, m_JumpForce);
+                    if (m_IsCrouching)
+                    {
+                        StartCoroutine(ChargeJump());
+                    }
+                    else
+                    {
+                        m_JumpCount = 0;
+                        m_Grounded = false;
+                        m_Anim.SetBool("Ground", false);
+                        m_Rigidbody2D.linearVelocity = new Vector2(m_Rigidbody2D.linearVelocityX, m_JumpForce);
+                    }
                 }
                 else if (m_WallDirection != 0)
                 {
+                    m_JumpCount = 0;
                     if (m_WallDirection > 0)
                     {
                         Vector3 theScale = transform.localScale;
@@ -213,10 +219,34 @@ namespace UnityStandardAssets._2D
             }
             if (input.canceled)
             {
-
+                if (m_JumpCharge != 0)
+                {
+                    m_Grounded = false;
+                    m_Anim.SetBool("Ground", false);
+                    m_Rigidbody2D.linearVelocity = new Vector2(m_Rigidbody2D.linearVelocityX, m_JumpCharge);
+                }
             }
         }
 
+        private IEnumerator ChargeJump()
+        {
+            m_JumpCount = 0;
+            m_JumpCharge = m_JumpForce;
+            while (m_IsCrouching && m_Grounded)
+            {
+                if (m_ChargeSpeed == 0)
+                {
+                    yield break;
+                }
+                yield return new WaitForSeconds(1/m_ChargeSpeed);
+                m_JumpCharge += 1;
+                m_JumpCharge = Mathf.Min(m_MaxChargeForce, m_JumpCharge);
+                m_ChargeIndicator.transform.localScale = new Vector3(m_ChargeIndicator.transform.localScale.x, (m_JumpCharge - m_JumpForce) / m_MaxChargeForce);
+                m_ChargeIndicator.transform.localPosition = new Vector3(m_ChargeIndicator.transform.localPosition.x, (m_JumpCharge - m_JumpForce) / (2 * m_MaxChargeForce));
+            }
+            m_JumpCharge = 0f;
+            m_ChargeIndicator.transform.localScale = new Vector3(m_ChargeIndicator.transform.localScale.x, 0);
+        }
 
         private void Flip()
         {
