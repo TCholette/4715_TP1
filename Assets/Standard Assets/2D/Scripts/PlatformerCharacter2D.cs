@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.SpeedTree.Importer;
@@ -28,6 +29,9 @@ namespace UnityStandardAssets._2D
         [SerializeField] public Collider2D m_feetCollider;
         [SerializeField] public Collider2D m_wallCollider;
 
+
+        [SerializeField] public float m_WallJumpMoveDisableTime;
+
         [SerializeField] public float m_Deceleration;
 
         //private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
@@ -46,6 +50,7 @@ namespace UnityStandardAssets._2D
         private float m_MoveDirection = 0f;
 
         private float m_WallDirection;
+        private bool m_IsMoveDisabled = false;
 
 
         private void Awake()
@@ -98,18 +103,16 @@ namespace UnityStandardAssets._2D
             Move(m_MoveDirection);
         }
 
-
-
-
-    
-
-
         public void OnMove(InputAction.CallbackContext input)
         {
             m_MoveDirection = input.ReadValue<Vector2>().x;
         }
         public void Move(float direction)
         {
+            if (m_IsMoveDisabled)
+            {
+                return;
+            }
             m_Anim.SetFloat("Speed", Mathf.Abs(direction));
             if (m_WallDirection == 0 && direction != 0 && (m_Grounded || m_AirControl))
             {
@@ -119,7 +122,14 @@ namespace UnityStandardAssets._2D
                 // The Speed animator parameter is set to the absolute value of the horizontal input.
 
                 // Move the character
-                m_Rigidbody2D.linearVelocity = new Vector2(direction * m_MaxSpeed, m_Rigidbody2D.linearVelocity.y);
+                if (m_Grounded)
+                {
+                    m_Rigidbody2D.linearVelocity = new Vector2(direction * m_MaxSpeed, m_Rigidbody2D.linearVelocityY);
+                }
+                else
+                {
+                    m_Rigidbody2D.AddForce(new Vector2(direction * m_MaxSpeed * 5, 0f));
+                }
 
                 // If the input is moving the player right and the player is facing left...
                 if (direction > 0 && !m_FacingRight)
@@ -142,7 +152,14 @@ namespace UnityStandardAssets._2D
             }
         }
 
-       public void OnCrouch(InputAction.CallbackContext input)
+        public IEnumerator WallJumpTimer()
+        {
+            m_IsMoveDisabled = true;
+            yield return new WaitForSeconds(m_WallJumpMoveDisableTime);
+            m_IsMoveDisabled = false;
+        }
+
+        public void OnCrouch(InputAction.CallbackContext input)
         {
             if (m_Grounded)
             {
@@ -178,6 +195,7 @@ namespace UnityStandardAssets._2D
                         m_FacingRight = true;
                         m_Rigidbody2D.linearVelocity = new Vector2(m_WallJumpHorizontalForce, m_JumpForce);
                     }
+                    StartCoroutine(WallJumpTimer());
                     m_WallDirection = 0;
                     m_Anim.SetBool("Ground", false);
                 }
@@ -185,7 +203,7 @@ namespace UnityStandardAssets._2D
                 {
                     m_JumpCount++;
                     m_Anim.SetBool("Ground", false);
-                    m_Rigidbody2D.linearVelocity = new Vector2(0, m_JumpForce);
+                    m_Rigidbody2D.linearVelocity = new Vector2(m_Rigidbody2D.linearVelocityX, m_JumpForce);
                 }
             }
             if (input.canceled)

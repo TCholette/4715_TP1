@@ -21415,6 +21415,7 @@ MonoBehaviour:
   m_headCollider: {fileID: 920846915}
   m_feetCollider: {fileID: 1862723219}
   m_wallCollider: {fileID: 1862723221}
+  m_WallJumpMoveDisableTime: 0.1
   m_Deceleration: 1
 --- !u!50 &920846918
 Rigidbody2D:
