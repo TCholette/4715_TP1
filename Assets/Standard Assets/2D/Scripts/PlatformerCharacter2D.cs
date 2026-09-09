@@ -26,8 +26,9 @@ namespace UnityStandardAssets._2D
 
         [SerializeField] public Collider2D m_headCollider;
         [SerializeField] public Collider2D m_feetCollider;
-        [SerializeField] public Collider2D m_rightCollider;
-        [SerializeField] public Collider2D m_leftCollider;
+        [SerializeField] public Collider2D m_wallCollider;
+
+        [SerializeField] public float m_Deceleration;
 
         //private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         //const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -39,12 +40,12 @@ namespace UnityStandardAssets._2D
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 
         private int m_JumpCount = 0;
-        private bool m_OnLeftWall;
-        private bool m_OnRightWall;
 
         private bool m_IsCrouching = false;
 
         private float m_MoveDirection = 0f;
+
+        private float m_WallDirection;
 
 
         private void Awake()
@@ -70,15 +71,10 @@ namespace UnityStandardAssets._2D
                 m_JumpCount = 0;
                 m_Anim.SetBool("Ground", m_Grounded);
             }
-            else if (collision.otherCollider == m_leftCollider && collision.gameObject.CompareTag("Wall"))
+            else if (collision.otherCollider == m_wallCollider && collision.gameObject.CompareTag("Wall"))
             {
-                m_OnLeftWall = true;
                 m_JumpCount = 0;
-            }
-            else if (collision.otherCollider == m_rightCollider && collision.gameObject.CompareTag("Wall"))
-            {
-                m_OnRightWall = true;
-                m_JumpCount = 0;
+                m_WallDirection = collision.GetContact(0).point.x - transform.position.x;
             }
         }
 
@@ -88,13 +84,9 @@ namespace UnityStandardAssets._2D
             {
                 m_Grounded = false;
             }
-            else if (collision.otherCollider == m_leftCollider && collision.gameObject.CompareTag("Wall"))
+            else if (collision.otherCollider == m_wallCollider && collision.gameObject.CompareTag("Wall"))
             {
-                m_OnLeftWall = false;
-            }
-            else if (collision.otherCollider == m_rightCollider && collision.gameObject.CompareTag("Wall"))
-            {
-                m_OnRightWall = false;
+                m_WallDirection = 0;
             }
         }
 
@@ -119,7 +111,7 @@ namespace UnityStandardAssets._2D
         public void Move(float direction)
         {
             m_Anim.SetFloat("Speed", Mathf.Abs(direction));
-            if (direction != 0 && (m_Grounded || m_AirControl))
+            if (m_WallDirection == 0 && direction != 0 && (m_Grounded || m_AirControl))
             {
                 // Reduce the speed if crouching by the crouchSpeed multiplier
                 direction = (m_IsCrouching ? direction * m_CrouchSpeed : direction);
@@ -140,9 +132,13 @@ namespace UnityStandardAssets._2D
                     Flip();
                 }
             }
-            else if (direction == 0 && (m_AirControl || m_Grounded))
+            else if (direction == 0 && !m_Grounded)
             {
-                m_Rigidbody2D.linearVelocity = new Vector2(0, m_Rigidbody2D.linearVelocity.y);
+                m_Rigidbody2D.linearVelocity = new Vector2(m_Rigidbody2D.linearVelocityX * (1-m_Deceleration/100f), m_Rigidbody2D.linearVelocityY);
+            }
+            else if (direction == 0 && m_Grounded)
+            {
+                m_Rigidbody2D.linearVelocity = new Vector2(0f, m_Rigidbody2D.linearVelocityY);
             }
         }
 
@@ -156,35 +152,45 @@ namespace UnityStandardAssets._2D
         }
         public void OnJump(InputAction.CallbackContext input)
         {
-            // If the player should jump...
-            if (m_OnLeftWall)
+            if (input.performed)
             {
-                // Add a vertical force to the player.
-                Flip();
-                m_OnLeftWall = false;
-                m_Anim.SetBool("Ground", false);
-                m_Rigidbody2D.linearVelocity = new Vector2(m_WallJumpHorizontalForce, m_JumpForce);
+                if (m_Grounded)
+                {
+                    m_Grounded = false;
+                    m_Anim.SetBool("Ground", false);
+                    m_Rigidbody2D.linearVelocity = new Vector2(m_Rigidbody2D.linearVelocityX, m_JumpForce);
+                }
+                else if (m_WallDirection != 0)
+                {
+                    if (m_WallDirection > 0)
+                    {
+                        Vector3 theScale = transform.localScale;
+                        theScale.x = -Mathf.Abs(theScale.x);
+                        transform.localScale = theScale;
+                        m_FacingRight = false;
+                        m_Rigidbody2D.linearVelocity = new Vector2(-m_WallJumpHorizontalForce, m_JumpForce);
+                    }
+                    else
+                    {
+                        Vector3 theScale = transform.localScale;
+                        theScale.x = Mathf.Abs(theScale.x);
+                        transform.localScale = theScale;
+                        m_FacingRight = true;
+                        m_Rigidbody2D.linearVelocity = new Vector2(m_WallJumpHorizontalForce, m_JumpForce);
+                    }
+                    m_WallDirection = 0;
+                    m_Anim.SetBool("Ground", false);
+                }
+                else if (m_MaxJumpCount > m_JumpCount) // Double-Jump
+                {
+                    m_JumpCount++;
+                    m_Anim.SetBool("Ground", false);
+                    m_Rigidbody2D.linearVelocity = new Vector2(0, m_JumpForce);
+                }
             }
-            else if (m_OnRightWall)
+            if (input.canceled)
             {
-                // Add a vertical force to the player.
-                Flip();
-                m_OnRightWall = false;
-                m_Anim.SetBool("Ground", false);
-                m_Rigidbody2D.linearVelocity = new Vector2(-m_WallJumpHorizontalForce, m_JumpForce);
-            }
-            else if (m_Grounded)
-            {
-                // Add a vertical force to the player.
-                m_Grounded = false;
-                m_Anim.SetBool("Ground", false);
-                m_Rigidbody2D.linearVelocity = new Vector2(0, m_JumpForce);
-                
-            } else if (m_MaxJumpCount > m_JumpCount) // Double-Jump
-            {
-                m_JumpCount++;
-                m_Anim.SetBool("Ground", false);
-                m_Rigidbody2D.linearVelocity = new Vector2(0, m_JumpForce);
+
             }
         }
 
