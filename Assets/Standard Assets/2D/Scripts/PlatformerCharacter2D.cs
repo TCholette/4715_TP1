@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
 using UnityEngine.PlayerLoop;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.TextCore.Text;
 
 #pragma warning disable 649
@@ -33,6 +34,8 @@ namespace UnityStandardAssets._2D
         [SerializeField] public float m_WallJumpMoveDisableTime;
 
         [SerializeField] public float m_Deceleration;
+        [SerializeField] public float m_AirDeceleration;
+        [SerializeField] public float m_Acceleration;
 
         //private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         //const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -51,6 +54,7 @@ namespace UnityStandardAssets._2D
 
         private float m_WallDirection;
         private bool m_IsMoveDisabled = false;
+        private float t;
 
 
         private void Awake()
@@ -114,41 +118,42 @@ namespace UnityStandardAssets._2D
                 return;
             }
             m_Anim.SetFloat("Speed", Mathf.Abs(direction));
-            if (m_WallDirection == 0 && direction != 0 && (m_Grounded || m_AirControl))
+            if (direction != 0 && (m_Grounded || m_AirControl))
             {
-                // Reduce the speed if crouching by the crouchSpeed multiplier
-                direction = (m_IsCrouching ? direction * m_CrouchSpeed : direction);
 
-                // The Speed animator parameter is set to the absolute value of the horizontal input.
-
-                // Move the character
                 if (m_Grounded)
                 {
-                    m_Rigidbody2D.linearVelocity = new Vector2(direction * m_MaxSpeed, m_Rigidbody2D.linearVelocityY);
+                    float targetVelocityX = direction * m_MaxSpeed;
+                    m_Rigidbody2D.linearVelocityX = Mathf.MoveTowards(m_Rigidbody2D.linearVelocityX, targetVelocityX, m_Acceleration * Time.deltaTime);
                 }
                 else
                 {
-                    m_Rigidbody2D.AddForce(new Vector2(direction * m_MaxSpeed * 5, 0f));
+                    float targetVelocityX = direction * m_MaxSpeed;
+                    m_Rigidbody2D.linearVelocityX = Mathf.MoveTowards(m_Rigidbody2D.linearVelocityX, targetVelocityX, m_Acceleration * Time.deltaTime);
                 }
 
-                // If the input is moving the player right and the player is facing left...
-                if (direction > 0 && !m_FacingRight)
-                {
-                    Flip();
-                }
-                // Otherwise if the input is moving the player left and the player is facing right...
-                else if (direction < 0 && m_FacingRight)
+                if ((direction < 0) == m_FacingRight)
                 {
                     Flip();
                 }
             }
             else if (direction == 0 && !m_Grounded)
             {
-                m_Rigidbody2D.linearVelocity = new Vector2(m_Rigidbody2D.linearVelocityX * (1-m_Deceleration/100f), m_Rigidbody2D.linearVelocityY);
+                m_Rigidbody2D.linearVelocityX *= (float)Math.Exp(-m_AirDeceleration * Time.deltaTime);
+
+                if (Mathf.Abs(m_Rigidbody2D.linearVelocityX) < 0.05f)
+                {
+                    m_Rigidbody2D.linearVelocityX = 0f;
+                }
             }
             else if (direction == 0 && m_Grounded)
             {
-                m_Rigidbody2D.linearVelocity = new Vector2(0f, m_Rigidbody2D.linearVelocityY);
+                m_Rigidbody2D.linearVelocityX *= (float)Math.Exp(-m_Deceleration * Time.deltaTime);
+
+                if (Mathf.Abs(m_Rigidbody2D.linearVelocityX) < 0.05f)
+                {
+                    m_Rigidbody2D.linearVelocityX = 0f;
+                }
             }
         }
 

@@ -21416,7 +21416,9 @@ MonoBehaviour:
   m_feetCollider: {fileID: 1862723219}
   m_wallCollider: {fileID: 1862723221}
   m_WallJumpMoveDisableTime: 0.1
-  m_Deceleration: 1
+  m_Deceleration: 2
+  m_AirDeceleration: 2
+  m_Acceleration: 100
 --- !u!50 &920846918
 Rigidbody2D:
   serializedVersion: 5
@@ -21432,7 +21434,7 @@ Rigidbody2D:
   m_Mass: 1.5862396
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
