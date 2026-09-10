@@ -102,7 +102,7 @@ namespace UnityStandardAssets._2D
             m_Anim.SetFloat("vSpeed", m_Rigidbody2D.linearVelocity.y);
             Move(m_MoveDirection);
 
-            if (m_IsGliding && m_Rigidbody2D.linearVelocityY < -m_GliderMaxDescentSpeed)
+            if (m_IsGliding && !m_Grounded && m_Rigidbody2D.linearVelocityY < -m_GliderMaxDescentSpeed)
             {
                 m_Rigidbody2D.linearVelocityY = Mathf.Lerp(m_Rigidbody2D.linearVelocityY, -m_GliderMaxDescentSpeed, 1 / -m_Rigidbody2D.linearVelocityY);
             }
@@ -271,7 +271,7 @@ namespace UnityStandardAssets._2D
         {
             if (input.performed)
             {
-                if (!m_IsGliding && !m_Grounded)
+                if (!m_IsGliding/* && !m_Grounded*/)
                 {
                     m_Anim.transform.Rotate(new Vector3(0,0,-20));
                     m_Glider.SetActive(true);

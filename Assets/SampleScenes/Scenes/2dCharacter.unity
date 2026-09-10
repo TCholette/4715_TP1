@@ -21630,6 +21630,7 @@ MonoBehaviour:
   m_Glider: {fileID: 939379871}
   m_GliderMaxDescentSpeed: 1
   m_Anim: {fileID: 456103318}
+  m_Grounded: 0
 --- !u!50 &920846918
 Rigidbody2D:
   serializedVersion: 5
@@ -22127,13 +22128,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 939379871}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6629999, z: 0}
-  m_LocalScale: {x: 1, y: 0.10000001, z: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0.037, y: 0.6629999, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1862723218}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &939379873
 SpriteRenderer:
   serializedVersion: 2
@@ -22181,10 +22182,10 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 46051034683907261, guid: 0a9f6c69968e0294aa750729d3a738c2, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.17257571, a: 1}
+  m_Sprite: {fileID: 7379241079139647989, guid: 46f87337fc3c4c847adbed6f32e0ff75, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -44021,9 +44022,9 @@ Transform:
   m_LocalScale: {x: 1.3152038, y: 1.3152019, z: 0.74241}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 939379872}
   - {fileID: 456103316}
   - {fileID: 295075650}
-  - {fileID: 939379872}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1862723219
