@@ -41,12 +41,16 @@ namespace UnityStandardAssets._2D
         [SerializeField] public float m_MaxChargeForce;
         [SerializeField] public GameObject m_ChargeIndicator;
 
+        [SerializeField] public GameObject m_Glider;
+        [SerializeField] public float m_GliderMaxDescentSpeed;
+
+        [SerializeField] public Animator m_Anim;
+
         //private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         //const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
-        private bool m_Grounded;            // Whether or not the player is grounded.
+        [SerializeField] private bool m_Grounded;            // Whether or not the player is grounded.
         //private Transform m_CeilingCheck;   // A position marking where to check for ceilings
         //const float k_CeilingRadius = .01f; // Radius of the overlap circle to determine if the player can stand up
-        private Animator m_Anim;            // Reference to the player's animator component.
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 
@@ -60,12 +64,10 @@ namespace UnityStandardAssets._2D
         private bool m_IsMoveDisabled = false;
 
         private float m_JumpCharge = 0f;
-
+        private bool m_IsGliding = false;
 
         private void Awake()
         {
-            // Setting up references.
-            m_Anim = GetComponent<Animator>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
@@ -73,6 +75,7 @@ namespace UnityStandardAssets._2D
         {
             if (collision.otherCollider == m_feetCollider && collision.gameObject.CompareTag("Ground"))
             {
+                CloseGlider();
                 m_Grounded = true;
                 m_Anim.SetBool("Ground", m_Grounded);
             }
@@ -98,6 +101,11 @@ namespace UnityStandardAssets._2D
         {
             m_Anim.SetFloat("vSpeed", m_Rigidbody2D.linearVelocity.y);
             Move(m_MoveDirection);
+
+            if (m_IsGliding && m_Rigidbody2D.linearVelocityY < -m_GliderMaxDescentSpeed)
+            {
+                m_Rigidbody2D.linearVelocityY = Mathf.Lerp(m_Rigidbody2D.linearVelocityY, -m_GliderMaxDescentSpeed, 1 / -m_Rigidbody2D.linearVelocityY);
+            }
         }
 
         public void OnMove(InputAction.CallbackContext input)
@@ -130,7 +138,7 @@ namespace UnityStandardAssets._2D
                     Flip();
                 }
             }
-            else if (direction == 0 && !m_Grounded)
+            else if (direction == 0 && !m_Grounded && !m_IsGliding)
             {
                 m_Rigidbody2D.linearVelocityX *= (float)Math.Exp(-m_AirDeceleration * Time.deltaTime);
 
@@ -219,7 +227,7 @@ namespace UnityStandardAssets._2D
             }
             if (input.canceled)
             {
-                if (m_JumpCharge != 0)
+                if (m_Grounded && m_JumpCharge != 0)
                 {
                     m_Grounded = false;
                     m_Anim.SetBool("Ground", false);
@@ -257,6 +265,36 @@ namespace UnityStandardAssets._2D
             Vector3 theScale = transform.localScale;
             theScale.x *= -1;
             transform.localScale = theScale;
+        }
+
+        public void OnOpenGlider(InputAction.CallbackContext input)
+        {
+            if (input.performed)
+            {
+                if (!m_IsGliding && !m_Grounded)
+                {
+                    m_Anim.transform.Rotate(new Vector3(0,0,-20));
+                    m_Glider.SetActive(true);
+                    m_IsGliding = true;
+                    m_Rigidbody2D.gravityScale /= 4f;
+                }
+            }
+        }
+
+        public void OnCloseGlider(InputAction.CallbackContext input)
+        {
+            CloseGlider();
+        }
+
+        private void CloseGlider()
+        {
+            if (m_IsGliding)
+            {
+                m_Anim.transform.Rotate(new Vector3(0, 0, 20));
+                m_Glider.SetActive(false);
+                m_IsGliding = false;
+                m_Rigidbody2D.gravityScale *= 4;
+            }
         }
     }
 }
