@@ -100,6 +100,11 @@ namespace UnityStandardAssets._2D
             Move(m_MoveDirection);
         }
 
+        public bool IsGrounded
+        {
+            get => m_Grounded;
+        }
+
         public void OnMove(InputAction.CallbackContext input)
         {
             m_MoveDirection = input.ReadValue<Vector2>().x;
