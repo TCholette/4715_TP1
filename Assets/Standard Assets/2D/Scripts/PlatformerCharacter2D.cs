@@ -16,6 +16,8 @@ namespace UnityStandardAssets._2D
 {
     public class PlatformerCharacter2D : MonoBehaviour
     {
+
+        [SerializeField] private Animator sphereAnim;
         [SerializeField] private float m_MaxSpeed = 10f;                    // The fastest the player can travel in the x axis.
         [SerializeField] private float m_JumpForce = 400f;                  // Amount of force added when the player jumps.
         
@@ -126,7 +128,7 @@ namespace UnityStandardAssets._2D
             m_Anim.SetFloat("Speed", Mathf.Abs(direction));
             if (direction != 0 && (m_Grounded || m_AirControl))
             {
-
+                sphereAnim.SetBool("isWalking", true);
                 if (m_Grounded)
                 {
                     float targetVelocityX = direction * m_MaxSpeed * (m_IsCrouching? m_CrouchSpeed : 1);
@@ -145,6 +147,7 @@ namespace UnityStandardAssets._2D
             }
             else if (direction == 0 && !m_Grounded && !m_IsGliding)
             {
+                sphereAnim.SetBool("isWalking", false);
                 m_Rigidbody2D.linearVelocityX *= (float)Math.Exp(-m_AirDeceleration * Time.deltaTime);
 
                 if (Mathf.Abs(m_Rigidbody2D.linearVelocityX) < 0.05f)
@@ -154,6 +157,7 @@ namespace UnityStandardAssets._2D
             }
             else if (direction == 0 && m_Grounded)
             {
+                sphereAnim.SetBool("isWalking", false);
                 m_Rigidbody2D.linearVelocityX *= (float)Math.Exp(-m_Deceleration * Time.deltaTime);
 
                 if (Mathf.Abs(m_Rigidbody2D.linearVelocityX) < 0.05f)
