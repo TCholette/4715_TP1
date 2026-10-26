@@ -47,6 +47,7 @@ namespace UnityStandardAssets._2D
         [SerializeField] public float m_GliderMaxDescentSpeed;
 
         [SerializeField] public Animator m_Anim;
+        [SerializeField] public Animator m_HandAnim;
 
         //private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         //const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -67,10 +68,17 @@ namespace UnityStandardAssets._2D
 
         private float m_JumpCharge = 0f;
         private bool m_IsGliding = false;
+        private bool m_IsWallGrabbing = false;
 
         private void Awake()
         {
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
+        }
+
+        private IEnumerator WallGrabTimerRoutine() {
+            m_IsWallGrabbing = true;
+            yield return new WaitForSeconds(2);
+            m_IsWallGrabbing = false;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -84,6 +92,15 @@ namespace UnityStandardAssets._2D
             else if (collision.otherCollider == m_wallCollider && collision.gameObject.CompareTag("Wall"))
             {
                 m_WallDirection = collision.GetContact(0).point.x - transform.position.x;
+                StartCoroutine(WallGrabTimerRoutine());
+            }
+        }
+
+        private void OnCollisionStay2D(Collision2D collision) {
+            if(collision.otherCollider == m_wallCollider && collision.gameObject.CompareTag("Wall")) {
+                if(!m_IsWallGrabbing && IsGrounded) {
+                    StartCoroutine(WallGrabTimerRoutine());
+                }
             }
         }
 
@@ -96,12 +113,19 @@ namespace UnityStandardAssets._2D
             else if (collision.otherCollider == m_wallCollider && collision.gameObject.CompareTag("Wall"))
             {
                 m_WallDirection = 0;
+                m_IsWallGrabbing = false;
+                m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
             }
         }
 
         private void FixedUpdate()
         {
-            m_Anim.SetFloat("vSpeed", m_Rigidbody2D.linearVelocity.y);
+            if (m_IsWallGrabbing) {
+                m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionY;
+            } else {
+                m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+            }
+                m_Anim.SetFloat("vSpeed", m_Rigidbody2D.linearVelocity.y);
             Move(m_MoveDirection);
 
             if (m_IsGliding && !m_Grounded && m_Rigidbody2D.linearVelocityY < -m_GliderMaxDescentSpeed)
@@ -125,7 +149,16 @@ namespace UnityStandardAssets._2D
             {
                 return;
             }
-            m_Anim.SetFloat("Speed", Mathf.Abs(direction));
+            if (m_IsWallGrabbing && direction * m_WallDirection > 0) {
+                m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+                m_Rigidbody2D.linearVelocityY = direction * m_MaxSpeed * 0.5f;
+                m_HandAnim.SetTrigger("isClimbing");
+            }
+            else {
+                m_HandAnim.SetTrigger("isIdle");
+            }
+
+                m_Anim.SetFloat("Speed", Mathf.Abs(direction));
             if (direction != 0 && (m_Grounded || m_AirControl))
             {
                 sphereAnim.SetBool("isWalking", true);
@@ -190,6 +223,7 @@ namespace UnityStandardAssets._2D
         {
             if (input.performed)
             {
+                m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
                 if (m_Grounded)
                 {
                     if (m_IsCrouching)
@@ -204,6 +238,7 @@ namespace UnityStandardAssets._2D
                         m_Rigidbody2D.linearVelocity = new Vector2(m_Rigidbody2D.linearVelocityX, m_JumpForce);
                     }
                 }
+
                 else if (m_WallDirection != 0)
                 {
                     m_JumpCount = 0;
@@ -227,6 +262,7 @@ namespace UnityStandardAssets._2D
                     m_WallDirection = 0;
                     m_Anim.SetBool("Ground", false);
                 }
+                
                 else if (m_MaxJumpCount > m_JumpCount) // Double-Jump
                 {
                     m_JumpCount++;
