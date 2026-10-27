@@ -70,6 +70,8 @@ namespace UnityStandardAssets._2D
         private bool m_IsGliding = false;
         private bool m_IsWallGrabbing = false;
 
+        private Coroutine m_WallGrabRoutine;
+
         private void Awake()
         {
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -92,14 +94,20 @@ namespace UnityStandardAssets._2D
             else if (collision.otherCollider == m_wallCollider && collision.gameObject.CompareTag("Wall"))
             {
                 m_WallDirection = collision.GetContact(0).point.x - transform.position.x;
-                StartCoroutine(WallGrabTimerRoutine());
+                if (m_WallGrabRoutine != null) {
+                   StopCoroutine(m_WallGrabRoutine);
+                }
+                m_WallGrabRoutine = StartCoroutine(WallGrabTimerRoutine());
             }
         }
 
         private void OnCollisionStay2D(Collision2D collision) {
             if(collision.otherCollider == m_wallCollider && collision.gameObject.CompareTag("Wall")) {
                 if(!m_IsWallGrabbing && IsGrounded) {
-                    StartCoroutine(WallGrabTimerRoutine());
+                    if (m_WallGrabRoutine != null) {
+                        StopCoroutine(m_WallGrabRoutine);
+                    }
+                    m_WallGrabRoutine = StartCoroutine(WallGrabTimerRoutine());
                 }
             }
         }
