@@ -77,7 +77,7 @@ namespace UnityStandardAssets._2D
 
         private IEnumerator WallGrabTimerRoutine() {
             m_IsWallGrabbing = true;
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(3);
             m_IsWallGrabbing = false;
         }
 
@@ -114,16 +114,17 @@ namespace UnityStandardAssets._2D
             {
                 m_WallDirection = 0;
                 m_IsWallGrabbing = false;
-                m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
             }
         }
 
         private void FixedUpdate()
         {
             if (m_IsWallGrabbing) {
-                m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionY;
+                m_wallCollider.sharedMaterial.friction = 50;
+                m_Rigidbody2D.linearVelocityX += m_WallDirection;
             } else {
-                m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+                m_wallCollider.sharedMaterial.friction = 0;
+                m_Rigidbody2D.linearVelocityX -= m_WallDirection * 0.25f;
             }
                 m_Anim.SetFloat("vSpeed", m_Rigidbody2D.linearVelocity.y);
             Move(m_MoveDirection);
@@ -150,8 +151,8 @@ namespace UnityStandardAssets._2D
                 return;
             }
             if (m_IsWallGrabbing && direction * m_WallDirection > 0) {
-                m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
-                m_Rigidbody2D.linearVelocityY = direction * m_MaxSpeed * 0.5f;
+                m_wallCollider.sharedMaterial.friction = 0;
+                m_Rigidbody2D.linearVelocityY = Mathf.Abs(direction) * m_MaxSpeed * 0.5f;
                 m_HandAnim.SetTrigger("isClimbing");
             }
             else {
@@ -178,7 +179,7 @@ namespace UnityStandardAssets._2D
                     Flip();
                 }
             }
-            else if (direction == 0 && !m_Grounded && !m_IsGliding)
+            else if (direction == 0 && !m_Grounded && !m_IsGliding && !m_IsWallGrabbing)
             {
                 sphereAnim.SetBool("isWalking", false);
                 m_Rigidbody2D.linearVelocityX *= (float)Math.Exp(-m_AirDeceleration * Time.deltaTime);
@@ -223,7 +224,6 @@ namespace UnityStandardAssets._2D
         {
             if (input.performed)
             {
-                m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
                 if (m_Grounded)
                 {
                     if (m_IsCrouching)
