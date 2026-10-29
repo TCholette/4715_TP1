@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityStandardAssets._2D;
 
-public class GliderHands:MonoBehaviour
+public class GliderHands:Glider
 {
 
     [SerializeField] private float _wallDurationSeconds = 0;
@@ -21,11 +21,7 @@ public class GliderHands:MonoBehaviour
 
     private PlatformerCharacter2D _character;
 
-    public void Init(PlatformerCharacter2D character) {
-        _character = character;
-    }
-
-    public void FixedUpdateStrategy() {
+    public override void FixedUpdateStrategy() {
         if (_isWallGrabbing) {
             _collider.sharedMaterial.friction = 50;
             _character.Rigidbody.linearVelocityX += _wallDirection;
@@ -69,7 +65,7 @@ public class GliderHands:MonoBehaviour
         }
     }
 
-    public void MoveStrategy(float direction) {
+    public override void MoveStrategy(float direction) {
         if (_isWallGrabbing && direction * _wallDirection > 0) {
             _collider.sharedMaterial.friction = 0;
             _character.Rigidbody.linearVelocityY = Mathf.Abs(direction) * _character.MaxSpeed * _wallSpeedMultiplier;
@@ -80,7 +76,7 @@ public class GliderHands:MonoBehaviour
         }
     }
 
-    public void JumpStrategy() {
+    public override void JumpStrategy() {
         if (_wallDirection != 0) {
             if (_wallDirection > 0) {
                 Vector3 theScale = _character.transform.localScale;
@@ -102,7 +98,7 @@ public class GliderHands:MonoBehaviour
         }
     }
 
-    public bool PerformAirDirectionCheckStrategy() {
+    public override bool PerformAirDirectionCheckStrategy() {
         return !isGliding && !_isWallGrabbing;
     }
 
