@@ -66,7 +66,7 @@ namespace UnityStandardAssets._2D
        
         public bool m_IsMoveDisabled = false;
 
-        private GliderHands _gliderMechanic;
+        private AbsGlider _gliderMechanic;
 
         // private int m_JumpCount = 0;
         // private float m_JumpCharge = 0f;
@@ -78,7 +78,7 @@ namespace UnityStandardAssets._2D
         private void Awake()
         {
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
-            _gliderMechanic = m_Glider.GetComponent<GliderHands>();
+            _gliderMechanic = m_Glider.GetComponent<AbsGlider>();
             _gliderMechanic.Init(this);
         }
 
@@ -140,7 +140,7 @@ namespace UnityStandardAssets._2D
             }
             */
 
-            _gliderMechanic.FixedUpdateStrategy();
+            if(_gliderMechanic.isEnabled) _gliderMechanic.FixedUpdateStrategy();
 
             m_Anim.SetFloat("vSpeed", m_Rigidbody2D.linearVelocity.y);
             Move(m_MoveDirection);
@@ -171,7 +171,7 @@ namespace UnityStandardAssets._2D
                 return;
             }
 
-            _gliderMechanic.MoveStrategy(direction);
+            if (_gliderMechanic.isEnabled) _gliderMechanic.MoveStrategy(direction);
 
             /*
             if (m_IsWallGrabbing && direction * m_WallDirection > 0) {
@@ -268,7 +268,7 @@ namespace UnityStandardAssets._2D
                     }
                 }
 
-                _gliderMechanic.JumpStrategy();
+                if (_gliderMechanic.isEnabled) _gliderMechanic.JumpStrategy();
 
                 /*
                 else if (m_WallDirection != 0)
@@ -355,12 +355,14 @@ namespace UnityStandardAssets._2D
         {
             m_Glider.SetActive(true);
             _gliderMechanic.isGliding = true;
+            _gliderMechanic.isEnabled = true;
         }
 
         public void OnCloseGlider(InputAction.CallbackContext input)
         {
             m_Glider.SetActive(false);
             _gliderMechanic.isGliding = false;
+            _gliderMechanic.isEnabled = false;
         }
     }
 }

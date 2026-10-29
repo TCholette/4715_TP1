@@ -2,24 +2,20 @@ using System.Collections;
 using UnityEngine;
 using UnityStandardAssets._2D;
 
-public class GliderHands:Glider
+public class GliderHands:AbsGlider
 {
 
     [SerializeField] private float _wallDurationSeconds = 0;
     [SerializeField] private float _wallSpeedMultiplier = 0.25f;
-    [SerializeField] private float _gliderMaxDescentSpeed = 100;
     [SerializeField] private float _wallJumpHorizontalForce = 400f;
     [SerializeField] public float m_WallJumpMoveDisableTime;
     [SerializeField] public Animator _handAnim;
     [SerializeField] private Collider2D _collider;
 
-    public bool isGliding = false;
 
     private bool _isWallGrabbing = false;
     private Coroutine _wallGrabRoutine;
     private float _wallDirection = 0;
-
-    private PlatformerCharacter2D _character;
 
     public override void FixedUpdateStrategy() {
         if (_isWallGrabbing) {
@@ -31,12 +27,11 @@ public class GliderHands:Glider
             _character.Rigidbody.linearVelocityX -= _wallDirection * 0.25f;
         }
 
-        if (isGliding && !_character.IsGrounded && _character.Rigidbody.linearVelocityY < -_gliderMaxDescentSpeed) {
-            _character.Rigidbody.linearVelocityY = Mathf.Lerp(_character.Rigidbody.linearVelocityY, -_gliderMaxDescentSpeed, 1 / -_character.Rigidbody.linearVelocityY);
-        }
+        TryGlide();
     }
 
     public void OnCollisionEnter2D(Collision2D collision) {
+        if(!isEnabled) return; 
         if (collision.gameObject.CompareTag("Wall")) {
             _wallDirection = collision.GetContact(0).point.x - transform.position.x;
             if (_wallGrabRoutine != null) {
@@ -47,6 +42,7 @@ public class GliderHands:Glider
     }
 
     public void OnCollisionStay2D(Collision2D collision) {
+        if (!isEnabled) return;
         if (collision.gameObject.CompareTag("Wall")) {
             if (!_isWallGrabbing && _character.IsGrounded) {
                 if (_wallGrabRoutine != null) {
@@ -59,6 +55,7 @@ public class GliderHands:Glider
     }
 
     public void OnCollisionExit2D(Collision2D collision) {
+        if (!isEnabled) return;
         if (collision.gameObject.CompareTag("Wall")) {
             _wallDirection = 0;
             _isWallGrabbing = false;
@@ -99,6 +96,7 @@ public class GliderHands:Glider
     }
 
     public override bool PerformAirDirectionCheckStrategy() {
+        if (!isEnabled) return true;
         return !isGliding && !_isWallGrabbing;
     }
 
