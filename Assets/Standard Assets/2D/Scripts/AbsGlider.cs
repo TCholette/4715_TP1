@@ -9,7 +9,9 @@ public abstract class AbsGlider : MonoBehaviour
     public bool isGliding = false;
     [SerializeField] protected float _gliderMaxDescentSpeed = 100;
     public void Init(PlatformerCharacter2D character) {
-        _character = character;
+        if (_character == null) {
+            _character = character;
+        }
     }
 
     protected void TryGlide() {

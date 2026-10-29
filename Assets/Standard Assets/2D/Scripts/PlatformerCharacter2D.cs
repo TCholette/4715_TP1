@@ -353,6 +353,12 @@ namespace UnityStandardAssets._2D
 
         public void OnOpenGlider(InputAction.CallbackContext input)
         {
+            AbsGlider gliderMechanic = m_Glider.GetComponent<AbsGlider>();
+            if(_gliderMechanic != gliderMechanic) {
+                if(_gliderMechanic != null) _gliderMechanic.isEnabled = false;
+                _gliderMechanic = gliderMechanic;
+                _gliderMechanic.Init(this);
+            }
             m_Glider.SetActive(true);
             _gliderMechanic.isGliding = true;
             _gliderMechanic.isEnabled = true;
