@@ -27,11 +27,11 @@ namespace UnityStandardAssets._2D
         //[SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
 
         // [SerializeField] private float m_WallJumpHorizontalForce = 400f;
-        [SerializeField] private int m_MaxJumpCount = 1;
+        // [SerializeField] private int m_MaxJumpCount = 1;
 
         [SerializeField] public Collider2D m_headCollider;
         [SerializeField] public Collider2D m_feetCollider;
-        [SerializeField] public Collider2D m_wallCollider;
+        // [SerializeField] public Collider2D m_wallCollider;
 
 
         // [SerializeField] public float m_WallJumpMoveDisableTime;
@@ -140,10 +140,12 @@ namespace UnityStandardAssets._2D
             }
             */
 
+            _gliderMechanic.FixedUpdateStrategy();
+
             m_Anim.SetFloat("vSpeed", m_Rigidbody2D.linearVelocity.y);
             Move(m_MoveDirection);
 
-            _gliderMechanic.FixedUpdateInject();
+    
 
             /*
             if (m_IsGliding && !m_Grounded && m_Rigidbody2D.linearVelocityY < -m_GliderMaxDescentSpeed)
@@ -169,7 +171,7 @@ namespace UnityStandardAssets._2D
                 return;
             }
 
-            _gliderMechanic.MoveInject(direction);
+            _gliderMechanic.MoveStrategy(direction);
 
             /*
             if (m_IsWallGrabbing && direction * m_WallDirection > 0) {
@@ -202,9 +204,7 @@ namespace UnityStandardAssets._2D
                     Flip();
                 }
             }
-            else if (direction == 0 && !m_Grounded 
-                //&& !m_IsGliding && !m_IsWallGrabbing
-                )
+            else if (direction == 0 && !m_Grounded && _gliderMechanic.PerformAirDirectionCheckStrategy())
             {
                 sphereAnim.SetBool("isWalking", false);
                 m_Rigidbody2D.linearVelocityX *= (float)Math.Exp(-m_AirDeceleration * Time.deltaTime);
@@ -268,7 +268,7 @@ namespace UnityStandardAssets._2D
                     }
                 }
 
-                _gliderMechanic.JumpInject();
+                _gliderMechanic.JumpStrategy();
 
                 /*
                 else if (m_WallDirection != 0)
@@ -360,6 +360,7 @@ namespace UnityStandardAssets._2D
         public void OnCloseGlider(InputAction.CallbackContext input)
         {
             m_Glider.SetActive(false);
+            _gliderMechanic.isGliding = false;
         }
     }
 }

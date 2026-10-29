@@ -11,13 +11,13 @@ public class GliderHands:MonoBehaviour
     [SerializeField] private float _wallJumpHorizontalForce = 400f;
     [SerializeField] public float m_WallJumpMoveDisableTime;
     [SerializeField] public Animator _handAnim;
+    [SerializeField] private Collider2D _collider;
 
     public bool isGliding = false;
 
     private bool _isWallGrabbing = false;
     private Coroutine _wallGrabRoutine;
     private float _wallDirection = 0;
-    private int _jumpCount = 0;
 
     private PlatformerCharacter2D _character;
 
@@ -25,13 +25,13 @@ public class GliderHands:MonoBehaviour
         _character = character;
     }
 
-    public void FixedUpdateInject() {
+    public void FixedUpdateStrategy() {
         if (_isWallGrabbing) {
-            _character.m_wallCollider.sharedMaterial.friction = 50;
+            _collider.sharedMaterial.friction = 50;
             _character.Rigidbody.linearVelocityX += _wallDirection;
         }
         else {
-            _character.m_wallCollider.sharedMaterial.friction = 0;
+            _collider.sharedMaterial.friction = 0;
             _character.Rigidbody.linearVelocityX -= _wallDirection * 0.25f;
         }
 
@@ -41,8 +41,8 @@ public class GliderHands:MonoBehaviour
     }
 
     public void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.otherCollider == _character.m_wallCollider && collision.gameObject.CompareTag("Wall")) {
-            _wallDirection = collision.GetContact(0).point.x - _character.transform.position.x;
+        if (collision.gameObject.CompareTag("Wall")) {
+            _wallDirection = collision.GetContact(0).point.x - transform.position.x;
             if (_wallGrabRoutine != null) {
                 StopCoroutine(_wallGrabRoutine);
             }
@@ -51,7 +51,7 @@ public class GliderHands:MonoBehaviour
     }
 
     public void OnCollisionStay2D(Collision2D collision) {
-        if (collision.otherCollider == _character.m_wallCollider && collision.gameObject.CompareTag("Wall")) {
+        if (collision.gameObject.CompareTag("Wall")) {
             if (!_isWallGrabbing && _character.IsGrounded) {
                 if (_wallGrabRoutine != null) {
                     StopCoroutine(_wallGrabRoutine);
@@ -63,15 +63,15 @@ public class GliderHands:MonoBehaviour
     }
 
     public void OnCollisionExit2D(Collision2D collision) {
-        if (collision.otherCollider == _character.m_wallCollider && collision.gameObject.CompareTag("Wall")) {
+        if (collision.gameObject.CompareTag("Wall")) {
             _wallDirection = 0;
             _isWallGrabbing = false;
         }
     }
 
-    public void MoveInject(float direction) {
+    public void MoveStrategy(float direction) {
         if (_isWallGrabbing && direction * _wallDirection > 0) {
-            _character.m_wallCollider.sharedMaterial.friction = 0;
+            _collider.sharedMaterial.friction = 0;
             _character.Rigidbody.linearVelocityY = Mathf.Abs(direction) * _character.MaxSpeed * _wallSpeedMultiplier;
             _handAnim.SetTrigger("isClimbing");
         }
@@ -80,20 +80,19 @@ public class GliderHands:MonoBehaviour
         }
     }
 
-    public void JumpInject() {
+    public void JumpStrategy() {
         if (_wallDirection != 0) {
-            _jumpCount = 0;
             if (_wallDirection > 0) {
-                Vector3 theScale = transform.localScale;
+                Vector3 theScale = _character.transform.localScale;
                 theScale.x = -Mathf.Abs(theScale.x);
-                transform.localScale = theScale;
+                _character.transform.localScale = theScale;
                 _character.m_FacingRight = false;
                 _character.Rigidbody.linearVelocity = new Vector2(-_wallJumpHorizontalForce, _character.m_JumpForce);
             }
             else {
-                Vector3 theScale = transform.localScale;
+                Vector3 theScale = _character.transform.localScale;
                 theScale.x = Mathf.Abs(theScale.x);
-                transform.localScale = theScale;
+                _character.transform.localScale = theScale;
                 _character.m_FacingRight = true;
                 _character.Rigidbody.linearVelocity = new Vector2(_wallJumpHorizontalForce, _character.m_JumpForce);
             }
@@ -101,6 +100,10 @@ public class GliderHands:MonoBehaviour
             _wallDirection = 0;
             _character.m_Anim.SetBool("Ground", false);
         }
+    }
+
+    public bool PerformAirDirectionCheckStrategy() {
+        return !isGliding && !_isWallGrabbing;
     }
 
     private IEnumerator WallGrabTimerRoutine() {
