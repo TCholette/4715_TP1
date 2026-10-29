@@ -473,23 +473,21 @@ MonoBehaviour:
   m_JumpForce: 15
   m_CrouchSpeed: 0.25
   m_AirControl: 1
-  m_WallJumpHorizontalForce: 10
   m_MaxJumpCount: 0
   m_headCollider: {fileID: 110189852}
   m_feetCollider: {fileID: 110189851}
   m_wallCollider: {fileID: 165937183}
-  m_WallJumpMoveDisableTime: 0.1
   m_Deceleration: 2
   m_AirDeceleration: 2
   m_Acceleration: 100
   m_ChargeSpeed: 10
   m_MaxChargeForce: 30
   m_ChargeIndicator: {fileID: 1137510369}
-  m_Glider: {fileID: 0}
-  m_GliderMaxDescentSpeed: 1
+  m_Glider: {fileID: 165937182}
   m_Anim: {fileID: 167555738}
-  m_HandAnim: {fileID: 165937185}
   m_Grounded: 0
+  m_FacingRight: 1
+  m_IsMoveDisabled: 0
 --- !u!50 &110189854
 Rigidbody2D:
   serializedVersion: 5
@@ -685,13 +683,14 @@ GameObject:
   - component: {fileID: 165937184}
   - component: {fileID: 165937183}
   - component: {fileID: 165937185}
+  - component: {fileID: 165937186}
   m_Layer: 0
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &165937183
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -777,6 +776,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &165937186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165937182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8747fb33c4a3a42a2abfd6b81d880d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  _wallDurationSeconds: 5
+  _wallSpeedMultiplier: 0.5
+  _gliderMaxDescentSpeed: 20
+  _wallJumpHorizontalForce: 10
+  m_WallJumpMoveDisableTime: 0.25
+  _handAnim: {fileID: 165937185}
+  isGliding: 0
 --- !u!1 &167555737
 GameObject:
   m_ObjectHideFlags: 0
