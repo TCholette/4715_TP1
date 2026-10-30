@@ -19,21 +19,22 @@ namespace UnityStandardAssets._2D
 
         [SerializeField] private Animator sphereAnim;
         [SerializeField] private float m_MaxSpeed = 10f;                    // The fastest the player can travel in the x axis.
-        [SerializeField] private float m_JumpForce = 400f;                  // Amount of force added when the player jumps.
+        public float MaxSpeed { get { return m_MaxSpeed; } }
+        [SerializeField] public float m_JumpForce = 400f;                  // Amount of force added when the player jumps.
         
         [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;  // Amount of maxSpeed applied to crouching movement. 1 = 100%
         [SerializeField] private bool m_AirControl = false;                 // Whether or not a player can steer while jumping;
         //[SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
 
-        [SerializeField] private float m_WallJumpHorizontalForce = 400f;
-        [SerializeField] private int m_MaxJumpCount = 1;
+        // [SerializeField] private float m_WallJumpHorizontalForce = 400f;
+        // [SerializeField] private int m_MaxJumpCount = 1;
 
         [SerializeField] public Collider2D m_headCollider;
         [SerializeField] public Collider2D m_feetCollider;
-        [SerializeField] public Collider2D m_wallCollider;
+        // [SerializeField] public Collider2D m_wallCollider;
 
 
-        [SerializeField] public float m_WallJumpMoveDisableTime;
+        // [SerializeField] public float m_WallJumpMoveDisableTime;
 
         [SerializeField] public float m_Deceleration;
         [SerializeField] public float m_AirDeceleration;
@@ -44,9 +45,12 @@ namespace UnityStandardAssets._2D
         [SerializeField] public GameObject m_ChargeIndicator;
 
         [SerializeField] public GameObject m_Glider;
-        [SerializeField] public float m_GliderMaxDescentSpeed;
+        // [SerializeField] public float m_GliderMaxDescentSpeed;
 
         [SerializeField] public Animator m_Anim;
+
+        [SerializeField] private GameObject _glideSelectorMenu;
+
 
         //private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         //const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -54,37 +58,58 @@ namespace UnityStandardAssets._2D
         //private Transform m_CeilingCheck;   // A position marking where to check for ceilings
         //const float k_CeilingRadius = .01f; // Radius of the overlap circle to determine if the player can stand up
         private Rigidbody2D m_Rigidbody2D;
-        private bool m_FacingRight = true;  // For determining which way the player is currently facing.
+        public Rigidbody2D Rigidbody { get { return m_Rigidbody2D; } }
 
-        private int m_JumpCount = 0;
+        public bool m_FacingRight = true;  // For determining which way the player is currently facing.
 
         private bool m_IsCrouching = false;
 
         private float m_MoveDirection = 0f;
+       
+        public bool m_IsMoveDisabled = false;
 
-        private float m_WallDirection;
-        private bool m_IsMoveDisabled = false;
+        private AbsGlider _gliderMechanic;
 
-        private float m_JumpCharge = 0f;
-        private bool m_IsGliding = false;
+        // private int m_JumpCount = 0;
+        // private float m_JumpCharge = 0f;
+        // private bool m_IsGliding = false;
+        // private bool m_IsWallGrabbing = false;
+        // private float _wallDirection = 0;
+        // private Coroutine m_WallGrabRoutine;
 
         private void Awake()
         {
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
+            _gliderMechanic = m_Glider.GetComponent<AbsGlider>();
+            _gliderMechanic.Init(this);
         }
+
+        /*
+        private IEnumerator WallGrabTimerRoutine() {
+            m_IsWallGrabbing = true;
+            yield return new WaitForSeconds(3);
+            m_IsWallGrabbing = false;
+        }
+        */
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.otherCollider == m_feetCollider && collision.gameObject.CompareTag("Ground"))
             {
-                CloseGlider();
                 m_Grounded = true;
                 m_Anim.SetBool("Ground", m_Grounded);
             }
+
+            /*
             else if (collision.otherCollider == m_wallCollider && collision.gameObject.CompareTag("Wall"))
             {
                 m_WallDirection = collision.GetContact(0).point.x - transform.position.x;
+                if (m_WallGrabRoutine != null) {
+                   StopCoroutine(m_WallGrabRoutine);
+                }
+                m_WallGrabRoutine = StartCoroutine(WallGrabTimerRoutine());
             }
+            */
         }
 
         private void OnCollisionExit2D(Collision2D collision)
@@ -93,21 +118,43 @@ namespace UnityStandardAssets._2D
             {
                 m_Grounded = false;
             }
+
+            /*
             else if (collision.otherCollider == m_wallCollider && collision.gameObject.CompareTag("Wall"))
             {
                 m_WallDirection = 0;
+                m_IsWallGrabbing = false;
             }
+            */
         }
 
         private void FixedUpdate()
         {
+
+
+            /*
+            if (m_IsWallGrabbing) {
+                m_wallCollider.sharedMaterial.friction = 50;
+                m_Rigidbody2D.linearVelocityX += m_WallDirection;
+            } else {
+                m_wallCollider.sharedMaterial.friction = 0;
+                m_Rigidbody2D.linearVelocityX -= m_WallDirection * 0.25f;
+            }
+            */
+
+            if(_gliderMechanic.isEnabled) _gliderMechanic.FixedUpdateStrategy();
+
             m_Anim.SetFloat("vSpeed", m_Rigidbody2D.linearVelocity.y);
             Move(m_MoveDirection);
 
+    
+
+            /*
             if (m_IsGliding && !m_Grounded && m_Rigidbody2D.linearVelocityY < -m_GliderMaxDescentSpeed)
             {
                 m_Rigidbody2D.linearVelocityY = Mathf.Lerp(m_Rigidbody2D.linearVelocityY, -m_GliderMaxDescentSpeed, 1 / -m_Rigidbody2D.linearVelocityY);
             }
+            */
         }
 
         public bool IsGrounded
@@ -125,6 +172,20 @@ namespace UnityStandardAssets._2D
             {
                 return;
             }
+
+            if (_gliderMechanic.isEnabled) _gliderMechanic.MoveStrategy(direction);
+
+            /*
+            if (m_IsWallGrabbing && direction * m_WallDirection > 0) {
+                m_wallCollider.sharedMaterial.friction = 0;
+                m_Rigidbody2D.linearVelocityY = Mathf.Abs(direction) * m_MaxSpeed * 0.5f;
+                m_HandAnim.SetTrigger("isClimbing");
+            }
+            else {
+                m_HandAnim.SetTrigger("isIdle");
+            }
+            */
+
             m_Anim.SetFloat("Speed", Mathf.Abs(direction));
             if (direction != 0 && (m_Grounded || m_AirControl))
             {
@@ -145,7 +206,7 @@ namespace UnityStandardAssets._2D
                     Flip();
                 }
             }
-            else if (direction == 0 && !m_Grounded && !m_IsGliding)
+            else if (direction == 0 && !m_Grounded && _gliderMechanic.PerformAirDirectionCheckStrategy())
             {
                 sphereAnim.SetBool("isWalking", false);
                 m_Rigidbody2D.linearVelocityX *= (float)Math.Exp(-m_AirDeceleration * Time.deltaTime);
@@ -165,15 +226,19 @@ namespace UnityStandardAssets._2D
                     m_Rigidbody2D.linearVelocityX = 0f;
                 }
             }
+
         }
 
-        public IEnumerator WallJumpTimer()
+        /*
+        private IEnumerator WallJumpTimer()
         {
             m_IsMoveDisabled = true;
             yield return new WaitForSeconds(m_WallJumpMoveDisableTime);
             m_IsMoveDisabled = false;
         }
+        */
 
+        /*
         public void OnCrouch(InputAction.CallbackContext input)
         {
             if (input.performed)
@@ -186,24 +251,30 @@ namespace UnityStandardAssets._2D
             }
             m_Anim.SetBool("Crouch", m_IsCrouching);
         }
+        */
         public void OnJump(InputAction.CallbackContext input)
         {
             if (input.performed)
             {
+
                 if (m_Grounded)
                 {
                     if (m_IsCrouching)
                     {
-                        StartCoroutine(ChargeJump());
+                        // StartCoroutine(ChargeJump());
                     }
                     else
                     {
-                        m_JumpCount = 0;
+                        // m_JumpCount = 0;
                         m_Grounded = false;
                         m_Anim.SetBool("Ground", false);
                         m_Rigidbody2D.linearVelocity = new Vector2(m_Rigidbody2D.linearVelocityX, m_JumpForce);
                     }
                 }
+
+                if (_gliderMechanic.isEnabled) _gliderMechanic.JumpStrategy();
+
+                /*
                 else if (m_WallDirection != 0)
                 {
                     m_JumpCount = 0;
@@ -227,13 +298,18 @@ namespace UnityStandardAssets._2D
                     m_WallDirection = 0;
                     m_Anim.SetBool("Ground", false);
                 }
+                */
+
+                /*
                 else if (m_MaxJumpCount > m_JumpCount) // Double-Jump
                 {
                     m_JumpCount++;
                     m_Anim.SetBool("Ground", false);
                     m_Rigidbody2D.linearVelocity = new Vector2(m_Rigidbody2D.linearVelocityX, m_JumpForce);
                 }
+                */
             }
+            /*
             if (input.canceled)
             {
                 if (m_Grounded && m_JumpCharge != 0)
@@ -243,8 +319,10 @@ namespace UnityStandardAssets._2D
                     m_Rigidbody2D.linearVelocity = new Vector2(m_Rigidbody2D.linearVelocityX, m_JumpCharge);
                 }
             }
+            */
         }
 
+        /*
         private IEnumerator ChargeJump()
         {
             m_JumpCount = 0;
@@ -264,6 +342,7 @@ namespace UnityStandardAssets._2D
             m_JumpCharge = 0f;
             m_ChargeIndicator.transform.localScale = new Vector3(m_ChargeIndicator.transform.localScale.x, 0);
         }
+        */
 
         private void Flip()
         {
@@ -276,34 +355,51 @@ namespace UnityStandardAssets._2D
             transform.localScale = theScale;
         }
 
-        public void OnOpenGlider(InputAction.CallbackContext input)
+        private void OpenGlider()
         {
-            if (input.performed)
-            {
-                if (!m_IsGliding/* && !m_Grounded*/)
-                {
-                    m_Anim.transform.Rotate(new Vector3(0,0,-20));
-                    m_Glider.SetActive(true);
-                    m_IsGliding = true;
-                    m_Rigidbody2D.gravityScale /= 4f;
+            AbsGlider gliderMechanic = m_Glider.GetComponent<AbsGlider>();
+            if(_gliderMechanic != gliderMechanic) {
+                if(_gliderMechanic != null) _gliderMechanic.isEnabled = false;
+                _gliderMechanic = gliderMechanic;
+                _gliderMechanic.Init(this);
+            }
+            m_Glider.SetActive(true);
+            _gliderMechanic.isGliding = true;
+            _gliderMechanic.isEnabled = true;
+        }
+
+        private void CloseGlider() {
+            m_Glider.SetActive(false);
+            _gliderMechanic.isGliding = false;
+            _gliderMechanic.isEnabled = false;
+        }
+
+        public void OnGlide(InputAction.CallbackContext input)
+        {
+            if (input.performed) {
+                if (!m_Glider.activeSelf) {
+                    OpenGlider();
+                }
+                else {
+                    CloseGlider();
                 }
             }
+           
         }
 
-        public void OnCloseGlider(InputAction.CallbackContext input)
-        {
-            CloseGlider();
-        }
-
-        private void CloseGlider()
-        {
-            if (m_IsGliding)
-            {
-                m_Anim.transform.Rotate(new Vector3(0, 0, 20));
-                m_Glider.SetActive(false);
-                m_IsGliding = false;
-                m_Rigidbody2D.gravityScale *= 4;
+        public void OnGlideSwitch(InputAction.CallbackContext input) {
+            if (input.performed) {
+                _glideSelectorMenu.SetActive(true);
+            } else if (input.canceled) {
+                _glideSelectorMenu.SetActive(false);
             }
+        }
+
+        public void SwitchGlider(GameObject glider) {
+            bool wasActive = m_Glider.activeSelf;
+            m_Glider.SetActive(false);
+            m_Glider = glider;
+            if (wasActive) OpenGlider();
         }
     }
 }
