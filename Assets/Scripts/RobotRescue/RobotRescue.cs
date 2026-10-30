@@ -51,7 +51,7 @@ public class RobotRescue : MonoBehaviour
         while (_isFollowing)
         {
             float dist = Vector3.Distance(_player.transform.position, transform.position);
-            transform.position = Vector3.Lerp(transform.position, _player.transform.position, -baseDist + Mathf.Exp(dist) / Mathf.Exp(speed * _index));
+            transform.position = Vector3.Lerp(transform.position, _player.transform.position, baseDist + Mathf.Pow(1.5f, dist) / Mathf.Pow(1.5f,speed * _index));
             yield return new WaitForSeconds(0.01f);
         }
     }
