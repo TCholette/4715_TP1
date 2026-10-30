@@ -49,6 +49,8 @@ namespace UnityStandardAssets._2D
 
         [SerializeField] public Animator m_Anim;
 
+        [SerializeField] private GameObject _glideSelectorMenu;
+
 
         //private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
         //const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
@@ -236,6 +238,7 @@ namespace UnityStandardAssets._2D
         }
         */
 
+        /*
         public void OnCrouch(InputAction.CallbackContext input)
         {
             if (input.performed)
@@ -248,6 +251,7 @@ namespace UnityStandardAssets._2D
             }
             m_Anim.SetBool("Crouch", m_IsCrouching);
         }
+        */
         public void OnJump(InputAction.CallbackContext input)
         {
             if (input.performed)
@@ -351,7 +355,7 @@ namespace UnityStandardAssets._2D
             transform.localScale = theScale;
         }
 
-        public void OnOpenGlider(InputAction.CallbackContext input)
+        private void OpenGlider()
         {
             AbsGlider gliderMechanic = m_Glider.GetComponent<AbsGlider>();
             if(_gliderMechanic != gliderMechanic) {
@@ -364,11 +368,38 @@ namespace UnityStandardAssets._2D
             _gliderMechanic.isEnabled = true;
         }
 
-        public void OnCloseGlider(InputAction.CallbackContext input)
-        {
+        private void CloseGlider() {
             m_Glider.SetActive(false);
             _gliderMechanic.isGliding = false;
             _gliderMechanic.isEnabled = false;
+        }
+
+        public void OnGlide(InputAction.CallbackContext input)
+        {
+            if (input.performed) {
+                if (!m_Glider.activeSelf) {
+                    OpenGlider();
+                }
+                else {
+                    CloseGlider();
+                }
+            }
+           
+        }
+
+        public void OnGlideSwitch(InputAction.CallbackContext input) {
+            if (input.performed) {
+                _glideSelectorMenu.SetActive(true);
+            } else if (input.canceled) {
+                _glideSelectorMenu.SetActive(false);
+            }
+        }
+
+        public void SwitchGlider(GameObject glider) {
+            bool wasActive = m_Glider.activeSelf;
+            m_Glider.SetActive(false);
+            m_Glider = glider;
+            if (wasActive) OpenGlider();
         }
     }
 }
