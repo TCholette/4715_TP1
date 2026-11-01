@@ -7,9 +7,11 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private int _maxScoreGain = 0;
     [SerializeField] private int _lossConstantDivisor = 1;
     [SerializeField] private int _timeTolerance = 10;
-    [SerializeField] private bool _isTiming = true;
     [SerializeField] private TextMeshProUGUI _textTime;
     [SerializeField] private TextMeshProUGUI _textScore;
+    [SerializeField] private bool _showTimer = false;
+    private Coroutine _timer;
+    private bool _isTiming = false;
     private float _timeS = 0;
     public float TimeS { get { return _timeS; } }
     private int _currentScore = 0;
@@ -29,41 +31,37 @@ public class ScoreManager : MonoBehaviour
         return score;
     }
 
-    private void StartTimer()
+    public void LapTimer()
     {
-        StartCoroutine(TimerCoroutine());
+        StartCoroutine(LapTimerCoroutine());
     }
 
-    private void StopTimer()
-    {
+    public void StopTimer() {
         _isTiming = false;
+        _showTimer = false;
+        _textTime.text = "";
     }
 
-    public void ToggleTimer()
-    {
-        if (_isTiming)
-        {
-            StopTimer();
+    private IEnumerator LapTimerCoroutine() {
+        _isTiming = false;
+        yield return new WaitForEndOfFrame();
+        if (_timer != null) {
+            StopCoroutine(_timer);
         }
-        else
-        {
-            StartTimer();
-        }
+        _timer = StartCoroutine(TimerCoroutine());
     }
 
     private IEnumerator TimerCoroutine()
     {
-        _timeS = 0;
         _isTiming = true;
+        _timeS = 0;
         while (_isTiming)
         {
             yield return null;
             _timeS += Time.deltaTime;
-            _textTime.text = _timeS.ToString("f3");
+            if(_showTimer) _textTime.text = _timeS.ToString("f3");
         }
         _currentScore += SnapshotScoreGain();
         _textScore.text = _currentScore.ToString();
     }
-
-
 }
