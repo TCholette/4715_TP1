@@ -2297,6 +2297,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 2DCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 2850292351304516813, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: _wallDurationSeconds
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4787266529027892865, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
