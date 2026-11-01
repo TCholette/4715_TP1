@@ -92,12 +92,13 @@ namespace UnityStandardAssets._2D
         }
         */
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void OnCollisionStay2D(Collision2D collision)
         {
             if (collision.otherCollider == m_feetCollider && collision.gameObject.CompareTag("Ground"))
             {
+                //Debug.Log("Test2");
                 m_Grounded = true;
-                m_Anim.SetBool("Ground", m_Grounded);
+                //m_Anim.SetBool("Ground", m_Grounded);
             }
 
             /*
