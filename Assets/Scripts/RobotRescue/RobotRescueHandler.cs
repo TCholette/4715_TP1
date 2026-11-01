@@ -10,7 +10,7 @@ public class RobotRescueHandler : MonoBehaviour
     public int PrepareRobot(RobotRescue robot)
     {
         _allRobots.Add(robot);
-        return _allRobots.Count;
+        return _allRobots.Count-1;
     }
 
     public void KillRobots()
@@ -30,6 +30,6 @@ public class RobotRescueHandler : MonoBehaviour
             Destroy(robot.gameObject);
         }
         _allRobots = new();
-        rescueText.text = "Robots Rescued : " + _rescueAmount;
+        rescueText.text = "Robots Seccourus: " + _rescueAmount;
     }
 }
