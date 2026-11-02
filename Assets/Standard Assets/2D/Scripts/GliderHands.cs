@@ -32,7 +32,7 @@ public class GliderHands:AbsGlider
 
     public void OnCollisionEnter2D(Collision2D collision) {
         if(!isEnabled) return; 
-        if (collision.gameObject.CompareTag("Wall")) {
+        if (collision.gameObject.CompareTag("Ground")) {
             _wallDirection = collision.GetContact(0).point.x - transform.position.x;
             if (_wallGrabRoutine != null) {
                 StopCoroutine(_wallGrabRoutine);
@@ -43,7 +43,7 @@ public class GliderHands:AbsGlider
 
     public void OnCollisionStay2D(Collision2D collision) {
         if (!isEnabled) return;
-        if (collision.gameObject.CompareTag("Wall")) {
+        if (collision.gameObject.CompareTag("Ground")) {
             if (!_isWallGrabbing && _character.IsGrounded) {
                 if (_wallGrabRoutine != null) {
                     StopCoroutine(_wallGrabRoutine);
@@ -56,7 +56,7 @@ public class GliderHands:AbsGlider
 
     public void OnCollisionExit2D(Collision2D collision) {
         if (!isEnabled) return;
-        if (collision.gameObject.CompareTag("Wall")) {
+        if (collision.gameObject.CompareTag("Ground")) {
             _wallDirection = 0;
             _isWallGrabbing = false;
         }
