@@ -373,7 +373,7 @@ MonoBehaviour:
   isEnabled: 0
   isGliding: 0
   _gliderMaxDescentSpeed: 3
-  _wallDurationSeconds: 0.5
+  _wallDurationSeconds: 3
   _wallSpeedMultiplier: 0.5
   _wallJumpHorizontalForce: 10
   m_WallJumpMoveDisableTime: 0.25
@@ -837,6 +837,7 @@ GameObject:
   - component: {fileID: 2196895966232145967}
   - component: {fileID: 9148814455829690323}
   - component: {fileID: 7922019459043312345}
+  - component: {fileID: 7389622941615975753}
   m_Layer: 0
   m_Name: CirclePlayerCharacter
   m_TagString: Player
@@ -852,7 +853,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2827239048906252384}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 2.6, z: 0}
   m_LocalScale: {x: 1, y: 0.9999985, z: 0.56448287}
   m_ConstrainProportionsScale: 1
@@ -961,7 +962,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1.5862396
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 1
   m_GravityScale: 4
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -988,13 +989,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphereAnim: {fileID: 541958266204452132}
   m_MaxSpeed: 10
-  m_JumpForce: 15
+  m_JumpForce: 16
   m_CrouchSpeed: 0.25
   m_AirControl: 1
   m_headCollider: {fileID: 848561660286845479}
   m_feetCollider: {fileID: 7922019459043312345}
-  m_Deceleration: 2
-  m_AirDeceleration: 2
+  m_Deceleration: 100
+  m_AirDeceleration: 20
   m_Acceleration: 100
   m_ChargeSpeed: 10
   m_MaxChargeForce: 30
@@ -1362,6 +1363,19 @@ PolygonCollider2D:
       - {x: 0.19366337, y: -0.5536282}
       - {x: 0.50291073, y: -0.40766332}
   m_UseDelaunayMesh: 1
+--- !u!114 &7389622941615975753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2827239048906252384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1891ca61a04f244ba20531a79e8712d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RobotRescueHandler
+  rescueText: {fileID: 0}
 --- !u!1 &3198238602663556852
 GameObject:
   m_ObjectHideFlags: 0
@@ -2384,7 +2398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp-firstpass::JumpGlider
   isEnabled: 0
   isGliding: 0
-  _gliderMaxDescentSpeed: 2
+  _gliderMaxDescentSpeed: 4
   _maxJumpCount: 2
 --- !u!1 &6341375884902812412
 GameObject:
