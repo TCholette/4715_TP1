@@ -32,6 +32,7 @@ public class ButtonHandler: MonoBehaviour
         {
             Activate();
         }
+        target.Setup(this);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -52,29 +53,35 @@ public class ButtonHandler: MonoBehaviour
         }
     }
 
-    private void Activate()
+    public void Activate(bool isFirst = true)
     {
         line.startColor = Color.green;
         line.endColor = Color.green;
-        target.Activate();
         anim.SetTrigger("Click");
         _isEnabled = true;
-        if (buttonMode == ButtonMode.Timer && !startsEnabled)
+        if (isFirst)
         {
-            StartCoroutine(Timer());
+            target.Activate();
+            if (buttonMode == ButtonMode.Timer && !startsEnabled)
+            {
+                StartCoroutine(Timer());
+            }
         }
     }
 
-    private void Deactivate()
+    public void Deactivate(bool isFirst = true)
     {
         line.startColor = Color.red;
         line.endColor = Color.red;
-        target.Deactivate();
         anim.SetTrigger("Release");
         _isEnabled = false;
-        if (buttonMode == ButtonMode.Timer && startsEnabled)
+        if (isFirst)
         {
-            StartCoroutine(Timer());
+            target.Deactivate();
+            if (buttonMode == ButtonMode.Timer && startsEnabled)
+            {
+                StartCoroutine(Timer());
+            }
         }
     }
 
@@ -84,6 +91,7 @@ public class ButtonHandler: MonoBehaviour
         timer.gameObject.SetActive(true);
         while (time < closeTimer)
         {
+            _isReady = false;
             time += Time.deltaTime;
 
             float maxDelta = 1;

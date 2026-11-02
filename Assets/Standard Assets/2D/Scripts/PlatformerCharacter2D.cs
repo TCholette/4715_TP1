@@ -145,7 +145,7 @@ namespace UnityStandardAssets._2D
 
             if(_gliderMechanic.isEnabled) _gliderMechanic.FixedUpdateStrategy();
 
-            m_Anim.SetFloat("vSpeed", m_Rigidbody2D.linearVelocity.y);
+            //m_Anim.SetFloat("vSpeed", m_Rigidbody2D.linearVelocity.y);
             Move(m_MoveDirection);
 
     
@@ -187,7 +187,7 @@ namespace UnityStandardAssets._2D
             }
             */
 
-            m_Anim.SetFloat("Speed", Mathf.Abs(direction));
+            //m_Anim.SetFloat("Speed", Mathf.Abs(direction));
             if (direction != 0 && (m_Grounded || m_AirControl))
             {
                 sphereAnim.SetBool("isWalking", true);
@@ -268,7 +268,7 @@ namespace UnityStandardAssets._2D
                     {
                         // m_JumpCount = 0;
                         m_Grounded = false;
-                        m_Anim.SetBool("Ground", false);
+                        //m_Anim.SetBool("Ground", false);
                         m_Rigidbody2D.linearVelocity = new Vector2(m_Rigidbody2D.linearVelocityX, m_JumpForce);
                     }
                 }
