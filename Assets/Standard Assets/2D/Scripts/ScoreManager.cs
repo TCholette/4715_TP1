@@ -27,7 +27,7 @@ public class ScoreManager : MonoBehaviour
     {
         float effectiveTimeS = Mathf.Max(0, _timeS - _timeTolerance);
         int score = (int)(_maxScoreGain * Mathf.Exp(-effectiveTimeS / _lossConstantDivisor));
-        Debug.Log(score);
+        //Debug.Log(score);
         return score;
     }
 
