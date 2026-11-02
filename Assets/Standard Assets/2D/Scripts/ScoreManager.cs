@@ -59,9 +59,9 @@ public class ScoreManager : MonoBehaviour
         {
             yield return null;
             _timeS += Time.deltaTime;
-            if(_showTimer) _textTime.text = _timeS.ToString("f3");
+            if (_showTimer) _textTime.text = "Temps: " + _timeS.ToString("f3") + " - " + SnapshotScoreGain();
         }
         _currentScore += SnapshotScoreGain();
-        _textScore.text = _currentScore.ToString();
+        _textScore.text = "Score: " + _currentScore.ToString();
     }
 }
