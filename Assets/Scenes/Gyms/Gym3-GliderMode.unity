@@ -14403,12 +14403,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 397140079114744030, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
-      propertyPath: _maxJumpCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 397140079114744030, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
       propertyPath: _gliderMaxDescentSpeed
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666592849794100463, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_Deceleration
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666592849794100463, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_AirDeceleration
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2827239048906252384, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
       propertyPath: m_Name
@@ -14417,6 +14421,10 @@ PrefabInstance:
     - target: {fileID: 2850292351304516813, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
       propertyPath: _wallDurationSeconds
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2897784539220672084, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_AngularDamping
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4787266529027892865, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
       propertyPath: m_LocalPosition.x
