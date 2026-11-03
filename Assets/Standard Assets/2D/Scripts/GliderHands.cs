@@ -19,6 +19,7 @@ public class GliderHands : AbsGlider
     private bool _isWallGrabbing = false;
     private Coroutine _wallGrabRoutine;
     private float _wallDirection = 0;
+    private float _lastWallDirection = 0;
 
     private float _wallTime = 0;
 
@@ -30,11 +31,10 @@ public class GliderHands : AbsGlider
             _canWallGrab = true;
         }
         if (_isWallGrabbing) {
-            _collider.sharedMaterial.friction = 50;
             _character.Rigidbody.linearVelocityX += _wallDirection * 0.25f;
+            _character.Rigidbody.AddForceY(10f * 4);
         }
         else {
-            _collider.sharedMaterial.friction = 0f;
             _character.Rigidbody.linearVelocityX -= _wallDirection * 0.25f;
         }
 
@@ -45,8 +45,9 @@ public class GliderHands : AbsGlider
         if (!isEnabled) return;
         _isTryingGrab = true;
         if (collision.gameObject.CompareTag("Ground")) {
-            if (_canWallGrab) _wallTime = 0;
-            _wallDirection = collision.GetContact(0).point.x - transform.position.x;
+            float wallPosition = (collision.GetContact(0).point.x - transform.position.x);
+            _wallDirection = wallPosition / Mathf.Abs(wallPosition);
+            if (_canWallGrab || _wallDirection != _lastWallDirection) _wallTime = 0;
             if (_wallGrabRoutine != null) {
                 StopCoroutine(_wallGrabRoutine);
             }
@@ -71,6 +72,7 @@ public class GliderHands : AbsGlider
         if (!isEnabled) return;
         _isTryingGrab = false;
         if (collision.gameObject.CompareTag("Ground")) {
+            _lastWallDirection = _wallDirection;
             _wallDirection = 0;
             _isWallGrabbing = false;
             _character.StartCoroutine(WallGrabStopRoutine());
@@ -121,7 +123,6 @@ public class GliderHands : AbsGlider
                 _character.m_FacingRight = true;
                 _character.Rigidbody.linearVelocity = new Vector2(_wallJumpHorizontalForce, _character.m_JumpForce);
             }
-            _wallDirection = 0;
             _character.m_Anim.SetBool("Ground", false);
         }
     }

@@ -183168,15 +183168,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1938802282101768463, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
       propertyPath: m_Size.x
-      value: 1.5914124
+      value: 1.5914125
       objectReference: {fileID: 0}
     - target: {fileID: 1938802282101768463, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
       propertyPath: m_Size.y
-      value: 0.6199999
+      value: 0.89556706
       objectReference: {fileID: 0}
     - target: {fileID: 1938802282101768463, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
       propertyPath: m_Offset.x
       value: 1.1192937
+      objectReference: {fileID: 0}
+    - target: {fileID: 1938802282101768463, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_Offset.y
+      value: -2.2556386
       objectReference: {fileID: 0}
     - target: {fileID: 1938802282101768463, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
       propertyPath: m_EdgeRadius
@@ -183199,8 +183203,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2850292351304516813, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: _wallFallMultiplier
+      value: -0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2850292351304516813, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: _wallDurationSeconds
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2850292351304516813, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
       propertyPath: m_WallGrabRegenCooldownTime
-      value: 1000
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4787266529027892865, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
       propertyPath: m_LocalPosition.x
