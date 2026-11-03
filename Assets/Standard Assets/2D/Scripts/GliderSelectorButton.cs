@@ -7,12 +7,13 @@ public class GliderSelectorButton : MonoBehaviour
     [SerializeField] private GameObject _glider;
     private Image _image;
 
-    private void Awake() {
+    public void Init() {
         _image = GetComponent<Image>();
     }
 
     public void SetGlider() {
         _selector.SetActiveGlider(_glider, _image.sprite);
+        _selector.SetIndex(this);
     }
 
 }

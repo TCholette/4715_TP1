@@ -27,16 +27,6 @@
                     "priority": 0
                 },
                 {
-                    "name": "Glide",
-                    "type": "Button",
-                    "id": "6c2ab1b8-8984-453a-af3d-a3c78ae1679a",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false,
-                    "priority": 0
-                },
-                {
                     "name": "Throw",
                     "type": "Button",
                     "id": "1d516667-2673-4a64-9185-805366cc04d9",
@@ -108,8 +98,28 @@
                 },
                 {
                     "name": "GlideSwitch",
+                    "type": "Value",
+                    "id": "6c2ab1b8-8984-453a-af3d-a3c78ae1679a",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true,
+                    "priority": 0
+                },
+                {
+                    "name": "GlideSwitchMenu",
                     "type": "Button",
                     "id": "101aec4f-64ba-4104-a44b-5032af94c019",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "Glide",
+                    "type": "Button",
+                    "id": "48deba3f-be08-4aad-865d-16f30ba1ffe3",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -280,17 +290,6 @@
                     "processors": "",
                     "groups": "Joystick",
                     "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "05f6913d-c316-48b2-a6bb-e225f14c7960",
-                    "path": "<Keyboard>/g",
-                    "interactions": "Tap",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Glide",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -521,9 +520,53 @@
                     "interactions": "Hold",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "GlideSwitch",
+                    "action": "GlideSwitchMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7fde1196-f44d-4707-989f-28c24d486f25",
+                    "path": "<Keyboard>/f",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Glide",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "da9055d1-ea36-4f50-9390-518ac1763405",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GlideSwitch",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "e3151f9f-9122-4438-9aee-491737a77766",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GlideSwitch",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "a190a47c-6591-4594-802c-baf9ba2e84f1",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GlideSwitch",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

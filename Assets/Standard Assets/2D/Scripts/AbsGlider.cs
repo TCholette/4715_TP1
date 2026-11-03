@@ -7,6 +7,7 @@ public abstract class AbsGlider : MonoBehaviour
     public bool isEnabled = false;
     protected PlatformerCharacter2D _character;
     public bool isGliding = false;
+    public float jumpForceMultiplier = 1f;
     [SerializeField] protected float _gliderMaxDescentSpeed = 100;
     public void Init(PlatformerCharacter2D character) {
         if (_character == null) {
