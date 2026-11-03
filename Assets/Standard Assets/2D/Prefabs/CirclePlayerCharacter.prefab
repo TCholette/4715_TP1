@@ -70,6 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp-firstpass::Glider
   isEnabled: 0
   isGliding: 0
+  jumpForceMultiplier: 1
   _gliderMaxDescentSpeed: 0.25
 --- !u!1 &1342941862598757617
 GameObject:
@@ -141,7 +142,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 1.2467065, y: -2.1178546}
+  m_Offset: {x: 1.1192937, y: -2.2556386}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -151,7 +152,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.6471071, y: 0.8554838}
+  m_Size: {x: 1.5914125, y: 0.89556706}
   m_EdgeRadius: 0
 --- !u!95 &5038701199636794146
 Animator:
@@ -187,9 +188,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df8747fb33c4a3a42a2abfd6b81d880d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  isEnabled: 0
-  isGliding: 0
-  _gliderMaxDescentSpeed: 3
+  isEnabled: 1
+  isGliding: 1
+  jumpForceMultiplier: 0.85
+  _gliderMaxDescentSpeed: 4
   _wallDurationSeconds: 3
   _wallSpeedMultiplier: 0.5
   _wallFallMultiplier: -0.4
@@ -419,7 +421,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4430131573299549445
 RectTransform:
   m_ObjectHideFlags: 0
@@ -456,6 +458,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   _character: {fileID: 2666592849794100463}
   _image: {fileID: 2612422946790319566}
+  _buttons:
+  - {fileID: 5317896591194585787}
+  - {fileID: 7785853407517854591}
+  - {fileID: 1892206591473804548}
+  _selectedIndex: 0
 --- !u!1 &2380731605204600712
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,7 +724,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphereAnim: {fileID: 541958266204452132}
   m_MaxSpeed: 10
-  m_JumpForce: 16
+  m_JumpForce: 15
   m_CrouchSpeed: 0.25
   m_AirControl: 1
   m_headCollider: {fileID: 848561660286845479}
@@ -923,7 +930,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2666592849794100463}
         m_TargetAssemblyTypeName: UnityStandardAssets._2D.PlatformerCharacter2D,
           Assembly-CSharp-firstpass
-        m_MethodName: OnGlide
+        m_MethodName: OnGlideSwitch
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1021,7 +1028,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2666592849794100463}
         m_TargetAssemblyTypeName: UnityStandardAssets._2D.PlatformerCharacter2D,
           Assembly-CSharp-firstpass
-        m_MethodName: OnGlideSwitch
+        m_MethodName: OnGlideSwitchMenu
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1033,6 +1040,23 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 101aec4f-64ba-4104-a44b-5032af94c019
     m_ActionName: 'Player/GlideSwitch[/Keyboard/g]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2666592849794100463}
+        m_TargetAssemblyTypeName: UnityStandardAssets._2D.PlatformerCharacter2D,
+          Assembly-CSharp-firstpass
+        m_MethodName: OnGlide
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 48deba3f-be08-4aad-865d-16f30ba1ffe3
+    m_ActionName: 'Player/Glide[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: 
@@ -1819,7 +1843,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp-firstpass::JumpGlider
   isEnabled: 0
   isGliding: 0
-  _gliderMaxDescentSpeed: 4
+  jumpForceMultiplier: 1.15
+  _gliderMaxDescentSpeed: 3
   _maxJumpCount: 1
 --- !u!1 &6341375884902812412
 GameObject:
