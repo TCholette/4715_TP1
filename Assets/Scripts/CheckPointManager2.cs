@@ -1,5 +1,5 @@
 ﻿
 public static class CheckPointManager2
 {
-    public static CheckPointTriggerBase currentActiveCheckPoint;
+    public static CheckpointTrigger currentActiveCheckPoint;
 }

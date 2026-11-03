@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 3563397060239096757}
   - component: {fileID: 8020940660296462591}
   - component: {fileID: 684477517368424293}
-  - component: {fileID: 43832965404660733}
+  - component: {fileID: 8834680388907118401}
+  - component: {fileID: 1243616996019277336}
   m_Layer: 0
   m_Name: Checkpoint
   m_TagString: Untagged
@@ -139,7 +140,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 11.256321}
   m_EdgeRadius: 0
---- !u!114 &43832965404660733
+--- !u!114 &8834680388907118401
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,11 +149,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 5381945420570523972}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee5159d8424e81842826d75ec54e722a, type: 3}
+  m_Script: {fileID: 11500000, guid: 38af7a4ec771a0c4b888822c5b56fc47, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Gym7CheckPointTrigger
-  _isStartOfLevel: 1
+  m_EditorClassIdentifier: Assembly-CSharp::CheckpointTrigger
+  _isStartOfLevel: 0
   _isEndOfLevel: 0
   sprite: {fileID: 8020940660296462591}
   activated: {fileID: -3448120935943364757, guid: d330af81bbbbb4f42b11c51362ae2f14, type: 3}
   deactivated: {fileID: 3301549609868922437, guid: d330af81bbbbb4f42b11c51362ae2f14, type: 3}
+--- !u!114 &1243616996019277336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5381945420570523972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52e593d5e791f8e4a824b214721aeb1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RobotSaveZone

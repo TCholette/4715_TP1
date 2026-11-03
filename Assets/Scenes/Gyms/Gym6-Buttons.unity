@@ -12427,6 +12427,8 @@ GameObject:
   - component: {fileID: 408896287}
   - component: {fileID: 408896286}
   - component: {fileID: 408896285}
+  - component: {fileID: 408896289}
+  - component: {fileID: 408896288}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Ground
@@ -12481,7 +12483,7 @@ TilemapCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_CompositeOperation: 0
+  m_CompositeOperation: 1
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
@@ -34247,6 +34249,248 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!66 &408896288
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408896283}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 3626fe8e008014f6bbd19bb72937b311, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 1
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths:
+  - m_Collider: {fileID: 408896285}
+    m_ColliderPaths:
+    - - X: 630000000
+        Y: 180000000
+      - X: 570000000
+        Y: 180000000
+      - X: 570000000
+        Y: -10000000
+      - X: 630000000
+        Y: -10000000
+    - - X: 440000000
+        Y: -50000000
+      - X: 10000000
+        Y: -50000000
+      - X: 10000000
+        Y: -10000000
+      - X: 440000000
+        Y: -10000000
+      - X: 440000000
+        Y: 180000000
+      - X: -70000000
+        Y: 180000000
+      - X: -70000000
+        Y: -160000000
+      - X: 440000000
+        Y: -160000000
+    - - X: 1650000000
+        Y: -70000000
+      - X: 1570000000
+        Y: -70000000
+      - X: 1570000000
+        Y: 150000000
+      - X: 1560000000
+        Y: 150000000
+      - X: 1560000000
+        Y: -70000000
+      - X: 1430000000
+        Y: -70000000
+      - X: 1430000000
+        Y: -60000000
+      - X: 1370000000
+        Y: -60000000
+      - X: 1370000000
+        Y: -70000000
+      - X: 1290000000
+        Y: -70000000
+      - X: 1290000000
+        Y: -140000000
+      - X: 1650000000
+        Y: -140000000
+    - - X: 550000000
+        Y: 0
+      - X: 530000000
+        Y: 0
+      - X: 530000000
+        Y: -10000000
+      - X: 550000000
+        Y: -10000000
+    - - X: 1470000000
+        Y: -10000000
+      - X: 1330000000
+        Y: -10000000
+      - X: 1330000000
+        Y: -20000000
+      - X: 1470000000
+        Y: -20000000
+    - - X: 570000000
+        Y: -10000000
+      - X: 550000000
+        Y: -10000000
+      - X: 550000000
+        Y: -20000000
+      - X: 570000000
+        Y: -20000000
+    - - X: 480000000
+        Y: -10000000
+      - X: 460000000
+        Y: -10000000
+      - X: 460000000
+        Y: -20000000
+      - X: 480000000
+        Y: -20000000
+    - - X: 520000000
+        Y: -20000000
+      - X: 490000000
+        Y: -20000000
+      - X: 490000000
+        Y: -30000000
+      - X: 520000000
+        Y: -30000000
+    - - X: 460000000
+        Y: -20000000
+      - X: 440000000
+        Y: -20000000
+      - X: 440000000
+        Y: -30000000
+      - X: 460000000
+        Y: -30000000
+    - - X: 630000000
+        Y: -50000000
+      - X: 570000000
+        Y: -50000000
+      - X: 570000000
+        Y: -160000000
+      - X: 630000000
+        Y: -160000000
+    - - X: 850000000
+        Y: -60000000
+      - X: 750000000
+        Y: -60000000
+      - X: 750000000
+        Y: -160000000
+      - X: 850000000
+        Y: -160000000
+  m_CompositePaths:
+    m_Paths:
+    - - {x: 63, y: 18}
+      - {x: 57, y: 18}
+      - {x: 57, y: -1}
+      - {x: 63, y: -1}
+    - - {x: 44, y: -5}
+      - {x: 1, y: -5}
+      - {x: 1, y: -1}
+      - {x: 44, y: -1}
+      - {x: 44, y: 18}
+      - {x: -7, y: 18}
+      - {x: -7, y: -16}
+      - {x: 44, y: -16}
+    - - {x: 165, y: -7}
+      - {x: 157, y: -7}
+      - {x: 157, y: 15}
+      - {x: 156, y: 15}
+      - {x: 156, y: -7}
+      - {x: 143, y: -7}
+      - {x: 143, y: -6}
+      - {x: 137, y: -6}
+      - {x: 137, y: -7}
+      - {x: 129, y: -7}
+      - {x: 129, y: -14}
+      - {x: 165, y: -14}
+    - - {x: 55, y: 0}
+      - {x: 53, y: 0}
+      - {x: 53, y: -1}
+      - {x: 55, y: -1}
+    - - {x: 147, y: -1}
+      - {x: 133, y: -1}
+      - {x: 133, y: -2}
+      - {x: 147, y: -2}
+    - - {x: 57, y: -1}
+      - {x: 55, y: -1}
+      - {x: 55, y: -2}
+      - {x: 57, y: -2}
+    - - {x: 48, y: -1}
+      - {x: 46, y: -1}
+      - {x: 46, y: -2}
+      - {x: 48, y: -2}
+    - - {x: 52, y: -2}
+      - {x: 49, y: -2}
+      - {x: 49, y: -3}
+      - {x: 52, y: -3}
+    - - {x: 46, y: -2}
+      - {x: 44, y: -2}
+      - {x: 44, y: -3}
+      - {x: 46, y: -3}
+    - - {x: 63, y: -5}
+      - {x: 57, y: -5}
+      - {x: 57, y: -16}
+      - {x: 63, y: -16}
+    - - {x: 85, y: -6}
+      - {x: 75, y: -6}
+      - {x: 75, y: -16}
+      - {x: 85, y: -16}
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0
+  m_UseDelaunayMesh: 0
+  m_CompositeGameObject: {fileID: 408896283}
+--- !u!50 &408896289
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408896283}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &413930737
 GameObject:
   m_ObjectHideFlags: 0
@@ -46110,7 +46354,7 @@ TilemapCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

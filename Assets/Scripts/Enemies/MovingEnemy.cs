@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Gym8Ennemi : EnnemiBase
+public class MovingEnemy : EnnemiBase
 {
     [SerializeField] protected Vector2[] pointsControles;
     [SerializeField] protected bool replay;
@@ -70,10 +70,9 @@ public class Gym8Ennemi : EnnemiBase
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log($"Collision with: " + collision.gameObject.name + "; " + collision.gameObject.layer);
-        if (collision.gameObject.layer == 0)
+        if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.transform.position = CheckPointManager2.currentActiveCheckPoint.gameObject.transform.position;
         }
