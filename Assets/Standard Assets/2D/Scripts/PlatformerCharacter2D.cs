@@ -64,6 +64,8 @@ namespace UnityStandardAssets._2D
 
         private bool m_IsCrouching = false;
 
+        private bool m_IsJumping = false;
+
         private float m_MoveDirection = 0f;
        
         public bool m_IsMoveDisabled = false;
@@ -92,10 +94,29 @@ namespace UnityStandardAssets._2D
         }
         */
 
-        private void OnCollisionStay2D(Collision2D collision)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.otherCollider == m_feetCollider && collision.gameObject.CompareTag("Ground"))
             {
+                //Debug.Log("Test2");
+                m_Grounded = true;
+                //m_Anim.SetBool("Ground", m_Grounded);
+            }
+
+            /*
+            else if (collision.otherCollider == m_wallCollider && collision.gameObject.CompareTag("Wall"))
+            {
+                m_WallDirection = collision.GetContact(0).point.x - transform.position.x;
+                if (m_WallGrabRoutine != null) {
+                   StopCoroutine(m_WallGrabRoutine);
+                }
+                m_WallGrabRoutine = StartCoroutine(WallGrabTimerRoutine());
+            }
+            */
+        }
+
+        private void OnCollisionStay2D(Collision2D collision) {
+            if (collision.otherCollider == m_feetCollider && collision.gameObject.CompareTag("Ground")) {
                 //Debug.Log("Test2");
                 m_Grounded = true;
                 //m_Anim.SetBool("Ground", m_Grounded);
@@ -147,6 +168,7 @@ namespace UnityStandardAssets._2D
 
             //m_Anim.SetFloat("vSpeed", m_Rigidbody2D.linearVelocity.y);
             Move(m_MoveDirection);
+            Jump();
 
     
 
@@ -253,27 +275,40 @@ namespace UnityStandardAssets._2D
             m_Anim.SetBool("Crouch", m_IsCrouching);
         }
         */
+        private void Jump() {
+            if (m_IsJumping) {
+                if (m_Grounded) {
+                    m_Rigidbody2D.linearVelocityY = m_JumpForce;
+                }
+            }
+
+        }
+
         public void OnJump(InputAction.CallbackContext input)
         {
             if (input.performed)
             {
+                m_IsJumping = true;
 
+                if (_gliderMechanic.isEnabled) _gliderMechanic.JumpStrategy();
+                /*
                 if (m_Grounded)
                 {
+                    /*
                     if (m_IsCrouching)
                     {
                         // StartCoroutine(ChargeJump());
                     }
                     else
-                    {
-                        // m_JumpCount = 0;
-                        m_Grounded = false;
-                        //m_Anim.SetBool("Ground", false);
-                        m_Rigidbody2D.linearVelocity = new Vector2(m_Rigidbody2D.linearVelocityX, m_JumpForce);
-                    }
-                }
+                    {*/
+                // m_JumpCount = 0;
+                //m_Anim.SetBool("Ground", false);
+                // m_Rigidbody2D.linearVelocity = new Vector2(m_Rigidbody2D.linearVelocityX, m_JumpForce);
+                // m_Grounded = false;
+                //}
+                //}
 
-                if (_gliderMechanic.isEnabled) _gliderMechanic.JumpStrategy();
+                // if (_gliderMechanic.isEnabled) _gliderMechanic.JumpStrategy();
 
                 /*
                 else if (m_WallDirection != 0)
@@ -309,6 +344,8 @@ namespace UnityStandardAssets._2D
                     m_Rigidbody2D.linearVelocity = new Vector2(m_Rigidbody2D.linearVelocityX, m_JumpForce);
                 }
                 */
+            } else if (input.canceled) {
+                m_IsJumping = false;
             }
             /*
             if (input.canceled)
