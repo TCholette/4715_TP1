@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 using UnityStandardAssets._2D;
 
 public abstract class AbsGlider : MonoBehaviour
@@ -8,6 +7,8 @@ public abstract class AbsGlider : MonoBehaviour
     protected PlatformerCharacter2D _character;
     public bool isGliding = false;
     public float jumpForceMultiplier = 1f;
+
+    [SerializeField] private float stabilisationSpeed = 2f;
     [SerializeField] protected float _gliderMaxDescentSpeed = 100;
     public void Init(PlatformerCharacter2D character) {
         if (_character == null) {
@@ -17,7 +18,7 @@ public abstract class AbsGlider : MonoBehaviour
 
     protected void TryGlide() {
         if (isGliding && !_character.IsGrounded && _character.Rigidbody.linearVelocityY < -_gliderMaxDescentSpeed) {
-            _character.Rigidbody.linearVelocityY = Mathf.Lerp(_character.Rigidbody.linearVelocityY, -_gliderMaxDescentSpeed, 1 / -_character.Rigidbody.linearVelocityY);
+            _character.Rigidbody.linearVelocityY = Mathf.Lerp(_character.Rigidbody.linearVelocityY, -_gliderMaxDescentSpeed, stabilisationSpeed / -_character.Rigidbody.linearVelocityY);
         }
     }
 

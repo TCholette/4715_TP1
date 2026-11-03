@@ -71,6 +71,7 @@ MonoBehaviour:
   isEnabled: 0
   isGliding: 0
   jumpForceMultiplier: 1
+  stabilisationSpeed: 2
   _gliderMaxDescentSpeed: 0.25
 --- !u!1 &1342941862598757617
 GameObject:
@@ -84,7 +85,7 @@ GameObject:
   - component: {fileID: 1938802282101768463}
   - component: {fileID: 5038701199636794146}
   - component: {fileID: 2850292351304516813}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HandGlider
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -124,7 +125,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -191,6 +192,7 @@ MonoBehaviour:
   isEnabled: 1
   isGliding: 1
   jumpForceMultiplier: 0.85
+  stabilisationSpeed: 2
   _gliderMaxDescentSpeed: 4
   _wallDurationSeconds: 3
   _wallSpeedMultiplier: 0.5
@@ -1844,6 +1846,7 @@ MonoBehaviour:
   isEnabled: 0
   isGliding: 0
   jumpForceMultiplier: 1.15
+  stabilisationSpeed: 2
   _gliderMaxDescentSpeed: 3
   _maxJumpCount: 1
 --- !u!1 &6341375884902812412

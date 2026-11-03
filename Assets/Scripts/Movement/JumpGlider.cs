@@ -5,14 +5,14 @@ public class JumpGlider : AbsGlider
     [SerializeField] private float _maxJumpCount = 0;
     private float _jumpCount = 0;
     public override void FixedUpdateStrategy() {
-        if (_character.IsGrounded && _jumpCount != 0) {
+        if ((_character.GetComponent<Rubberband>().inRubberband || _character.IsGrounded) && _jumpCount != 0) {
             _jumpCount = 0;
         }
         TryGlide();
     }
 
     public override void JumpStrategy() {
-        if (_maxJumpCount > _jumpCount)
+        if (_maxJumpCount > _jumpCount && !_character.GetComponent<Rubberband>().inRubberband)
         {
             _jumpCount++;
             _character.m_Anim.SetBool("Ground", false);
