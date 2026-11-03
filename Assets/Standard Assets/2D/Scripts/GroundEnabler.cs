@@ -6,9 +6,11 @@ public class GroundEnabler : MonoBehaviour
     [SerializeField] private GameObject _ground;
     private bool _isEnabled = true;
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (_isEnabled) {
-            _isEnabled = false;
-            StartCoroutine(WaitForGround());
+        if (collision.gameObject.CompareTag("Player")) {
+            if (_isEnabled) {
+                _isEnabled = false;
+                StartCoroutine(WaitForGround());
+            }
         }
     }
 

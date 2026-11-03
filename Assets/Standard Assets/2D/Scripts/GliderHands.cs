@@ -9,6 +9,7 @@ public class GliderHands:AbsGlider
     [SerializeField] private float _wallSpeedMultiplier = 0.25f;
     [SerializeField] private float _wallJumpHorizontalForce = 400f;
     [SerializeField] public float m_WallJumpMoveDisableTime;
+    [SerializeField] public float m_WallGrabRegenCooldownTime = 0.5f;
     [SerializeField] public Animator _handAnim;
     [SerializeField] private Collider2D _collider;
 
@@ -17,10 +18,18 @@ public class GliderHands:AbsGlider
     private Coroutine _wallGrabRoutine;
     private float _wallDirection = 0;
 
+    private float _wallTime = 0;
+
+    private bool _canWallGrab = false;
+
     public override void FixedUpdateStrategy() {
+        if (_character.IsGrounded) {
+            _character.m_IsMoveDisabled = false;
+            _canWallGrab = true;
+        }
         if (_isWallGrabbing) {
             _collider.sharedMaterial.friction = 50;
-            _character.Rigidbody.linearVelocityX += _wallDirection;
+            _character.Rigidbody.linearVelocityX += _wallDirection * 0.25f;
         }
         else {
             _collider.sharedMaterial.friction = 0;
@@ -33,6 +42,7 @@ public class GliderHands:AbsGlider
     public void OnCollisionEnter2D(Collision2D collision) {
         if(!isEnabled) return; 
         if (collision.gameObject.CompareTag("Ground")) {
+            if (_canWallGrab) _wallTime = 0;
             _wallDirection = collision.GetContact(0).point.x - transform.position.x;
             if (_wallGrabRoutine != null) {
                 StopCoroutine(_wallGrabRoutine);
@@ -58,6 +68,7 @@ public class GliderHands:AbsGlider
         if (!isEnabled) return;
         if (collision.gameObject.CompareTag("Ground")) {
             _wallDirection = 0;
+            StartCoroutine(WallGrabStopRoutine());
             _isWallGrabbing = false;
         }
     }
@@ -66,6 +77,7 @@ public class GliderHands:AbsGlider
         if (_isWallGrabbing && direction * _wallDirection > 0) {
             _collider.sharedMaterial.friction = 0;
             _character.Rigidbody.linearVelocityY = Mathf.Abs(direction) * _character.MaxSpeed * _wallSpeedMultiplier;
+            _character.Rigidbody.linearVelocityX = 0;
             _handAnim.SetTrigger("isClimbing");
         }
         else {
@@ -102,8 +114,21 @@ public class GliderHands:AbsGlider
 
     private IEnumerator WallGrabTimerRoutine() {
         _isWallGrabbing = true;
-        yield return new WaitForSeconds(_wallDurationSeconds);
+        while (_wallTime < _wallDurationSeconds) {
+            _wallTime += Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
         _isWallGrabbing = false;
+        _character.m_IsMoveDisabled = true;
+        float timeOutDuration = _wallDurationSeconds * (1f / (_character.MaxSpeed * _wallSpeedMultiplier) + m_WallJumpMoveDisableTime);
+        yield return new WaitForSeconds(timeOutDuration);
+        _character.m_IsMoveDisabled = false;
+    }
+
+    private IEnumerator WallGrabStopRoutine() {
+        _canWallGrab = false;
+        yield return new WaitForSeconds(m_WallGrabRegenCooldownTime);
+        _canWallGrab = true;
     }
 
     private IEnumerator WallJumpTimer() {
