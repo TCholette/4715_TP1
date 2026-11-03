@@ -139,10 +139,6 @@ public class GliderHands : AbsGlider
             yield return new WaitForFixedUpdate();
         }
         _isWallGrabbing = false;
-        //_character.m_IsMoveDisabled = true;
-        //float timeOutDuration = _wallDurationSeconds * (1f / (_character.MaxSpeed * _wallSpeedMultiplier) + m_WallJumpMoveDisableTime);
-        //yield return new WaitForSeconds(timeOutDuration);
-        //_character.m_IsMoveDisabled = false;
     }
 
     private IEnumerator WallGrabStopRoutine()

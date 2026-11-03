@@ -71,6 +71,9 @@ namespace UnityStandardAssets._2D
         public bool m_IsMoveDisabled = false;
 
         private AbsGlider _gliderMechanic;
+        public AbsGlider Glider {  get { return _gliderMechanic; } } 
+
+        private GliderSelector _gliderSelector;
 
         // private int m_JumpCount = 0;
         // private float m_JumpCharge = 0f;
@@ -82,6 +85,7 @@ namespace UnityStandardAssets._2D
         private void Awake()
         {
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
+            _gliderSelector = _glideSelectorMenu.GetComponent<GliderSelector>();
             _gliderMechanic = m_Glider.GetComponent<AbsGlider>();
             _gliderMechanic.Init(this);
         }
@@ -278,7 +282,8 @@ namespace UnityStandardAssets._2D
         private void Jump() {
             if (m_IsJumping) {
                 if (m_Grounded) {
-                    m_Rigidbody2D.linearVelocityY = m_JumpForce;
+                    float gliderMult = _gliderMechanic.isEnabled ? _gliderMechanic.jumpForceMultiplier : 1f;
+                    m_Rigidbody2D.linearVelocityY = m_JumpForce * gliderMult;
                 }
             }
 
@@ -425,11 +430,17 @@ namespace UnityStandardAssets._2D
            
         }
 
-        public void OnGlideSwitch(InputAction.CallbackContext input) {
+        public void OnGlideSwitchMenu(InputAction.CallbackContext input) {
             if (input.performed) {
                 _glideSelectorMenu.SetActive(true);
             } else if (input.canceled) {
                 _glideSelectorMenu.SetActive(false);
+            }
+        }
+
+        public void OnGlideSwitch(InputAction.CallbackContext input) {
+            if (input.performed) {
+                _gliderSelector.SwitchToNextGlider((int)input.ReadValue<float>());
             }
         }
 
