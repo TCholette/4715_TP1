@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class Gym7CheckPointTrigger : CheckPointTriggerBase
 {
+
+
     private void Awake()
     {
         if (_isStartOfLevel)
@@ -11,11 +14,13 @@ public class Gym7CheckPointTrigger : CheckPointTriggerBase
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (_isActive)
-        {
-            Debug.Log($"Collision with: " + collision.gameObject.name + "; " + collision.gameObject.layer);
-            _isActive = false;
+        //if (_isActive)
+        //{
+            //Debug.Log($"Collision with: " + collision.gameObject.name + "; " + collision.gameObject.layer);
+            //_isActive = false;
+            CheckPointManager2.currentActiveCheckPoint.Deactivate();
+            Activate();
             CheckPointManager2.currentActiveCheckPoint = this;
-        }
+        //}
     }
 }
