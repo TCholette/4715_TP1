@@ -53,10 +53,10 @@ public class Rubberband : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext input)
     {
-        if (input.ReadValue<Vector2>().magnitude > 0)
-        {
-            sendDirection = input.ReadValue<Vector2>();
-        }
+        //if (input.ReadValue<Vector2>().magnitude > 0)
+        //{
+        //    sendDirection = input.ReadValue<Vector2>();
+        //}
     }
 
     Coroutine stretchRoutine;
@@ -92,6 +92,10 @@ public class Rubberband : MonoBehaviour
                 var durationRatio = (float)input.duration / maxTimeSec;
                 var forceMod = Mathf.Clamp(durationRatio, minJumpMod, 1);
                 var rigid = GetComponent<Rigidbody2D>();
+
+                Vector3 mousePos = Input.mousePosition;
+                mousePos.z = 10f;
+                Vector3 sendDirection = Camera.main.ScreenToWorldPoint(mousePos) - transform.position;
                 rigid.AddForce(forceMod * rubberbandForce * new Vector3(sendDirection.normalized.x * horizontalExtraForce, sendDirection.normalized.y), ForceMode2D.Impulse);
                 jumped = true;
             }

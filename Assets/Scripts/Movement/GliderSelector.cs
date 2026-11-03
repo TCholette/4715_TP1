@@ -8,7 +8,7 @@ public class GliderSelector : MonoBehaviour
 {
    [SerializeField] private PlatformerCharacter2D _character;
 
-    [SerializeField] private Image _image;
+    [SerializeField] private List<Image> _images;
     [SerializeField] private List<GliderSelectorButton> _buttons;
 
     [SerializeField] private int _selectedIndex = 0;
@@ -23,7 +23,9 @@ public class GliderSelector : MonoBehaviour
 
     public void SetActiveGlider(GameObject glider, Sprite sprite ) {
         _character.SwitchGlider(glider);
-        _image.sprite = sprite;
+        _images[0].sprite = _buttons[(_selectedIndex-1 + _buttons.Count) % _buttons.Count].sprite;
+        _images[1].sprite = _buttons[_selectedIndex].sprite; ;
+        _images[2].sprite = _buttons[(_selectedIndex+1)%_buttons.Count].sprite; ;
     }
 
     public void SetIndex(GliderSelectorButton button) {

@@ -516,7 +516,7 @@
                 {
                     "name": "",
                     "id": "ff1e6a54-7f2e-48b7-8ec6-1983f5201c29",
-                    "path": "<Keyboard>/g",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "Hold",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
@@ -527,7 +527,7 @@
                 {
                     "name": "",
                     "id": "7fde1196-f44d-4707-989f-28c24d486f25",
-                    "path": "<Keyboard>/f",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "Tap",
                     "processors": "",
                     "groups": "",
