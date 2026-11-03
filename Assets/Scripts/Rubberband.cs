@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,10 +13,22 @@ public class Rubberband : MonoBehaviour
     [SerializeField] private float minJumpMod = 0.5f;
     [SerializeField] private float horizontalExtraForce = 1.5f;
 
+    private bool _isJumping = false;
+
+    [SerializeField] private LineRenderer timer;
+
     public void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("rubberband"))
         {
+            if (_isJumping)
+            {
+                if (stretchRoutine != null)
+                {
+                    StopCoroutine(stretchRoutine);
+                }
+                StartCoroutine(Timer());
+            }
             inRubberband = true;
             jumped = false;
         }
@@ -40,19 +53,66 @@ public class Rubberband : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext input)
     {
-        sendDirection = input.ReadValue<Vector2>();
+        if (input.ReadValue<Vector2>().magnitude > 0)
+        {
+            sendDirection = input.ReadValue<Vector2>();
+        }
     }
+
+    Coroutine stretchRoutine;
 
     public void OnJump(InputAction.CallbackContext input)
     {
 
-        if (inRubberband /*&& startedInside*/ && input.canceled)
+        if (input.performed)
         {
-            var durationRatio = (float) input.duration / maxTimeSec;
-            var forceMod = Mathf.Clamp(durationRatio, minJumpMod, 1);
-            var rigid = GetComponent<Rigidbody2D>();
-            rigid.AddForce(forceMod * rubberbandForce * new Vector3(sendDirection.normalized.x*horizontalExtraForce, sendDirection.normalized.y), ForceMode2D.Impulse);
-            jumped = true;
+            _isJumping = true;
+            if (inRubberband)
+            {
+                if (stretchRoutine != null)
+                {
+                    StopCoroutine(stretchRoutine);
+                }
+                StartCoroutine(Timer());
+            }
+        }
+
+        if (input.canceled)
+        {
+            _isJumping = false;
+            if (inRubberband)
+            {
+                if (stretchRoutine != null)
+                {
+                    StopCoroutine(stretchRoutine);
+                }
+
+                timer.gameObject.SetActive(false);
+
+                var durationRatio = (float)input.duration / maxTimeSec;
+                var forceMod = Mathf.Clamp(durationRatio, minJumpMod, 1);
+                var rigid = GetComponent<Rigidbody2D>();
+                rigid.AddForce(forceMod * rubberbandForce * new Vector3(sendDirection.normalized.x * horizontalExtraForce, sendDirection.normalized.y), ForceMode2D.Impulse);
+                jumped = true;
+            }
+        }
+    }
+
+
+    private IEnumerator Timer()
+    {
+        float time = 0;
+        timer.gameObject.SetActive(true);
+        while (time < maxTimeSec)
+        {
+            time += Time.deltaTime;
+
+            float maxDelta = 1;
+            float delta = Mathf.Lerp(0, maxDelta, time / maxTimeSec);
+
+            timer.SetPosition(0, new Vector3(transform.position.x - delta, timer.transform.position.y + 2, transform.position.z));
+            timer.SetPosition(1, new Vector3(transform.position.x + delta, timer.transform.position.y + 2, transform.position.z));
+            yield return null;
         }
     }
 }
