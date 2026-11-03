@@ -15,6 +15,8 @@ public class Rubberband : MonoBehaviour
 
     private bool _isJumping = false;
 
+    private Coroutine stretchRoutine;
+
     [SerializeField] private LineRenderer timer;
 
     public void OnTriggerEnter2D(Collider2D col)
@@ -58,8 +60,6 @@ public class Rubberband : MonoBehaviour
         //    sendDirection = input.ReadValue<Vector2>();
         //}
     }
-
-    Coroutine stretchRoutine;
 
     public void OnJump(InputAction.CallbackContext input)
     {
