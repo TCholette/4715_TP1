@@ -9,9 +9,14 @@ public class Wind : MonoBehaviour
     public void OnTriggerStay2D(Collider2D col)
     {
         var rigid = col.GetComponent<Rigidbody2D>();
-        if (rigid == null) return;
+        if (rigid == null)
+        {
+            return;
+        }
         var gliders = rigid.GetComponentsInChildren<AbsGlider>();
-        if (gliders.Length == 0) return;
-        rigid.AddForce(windDirection.normalized * windForce, ForceMode2D.Force);
+        if (gliders.Length != 0)
+        {
+            rigid.AddForce(windDirection.normalized * windForce, ForceMode2D.Force);
+        }
     }
 }

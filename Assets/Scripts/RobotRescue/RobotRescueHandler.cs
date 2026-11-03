@@ -28,8 +28,8 @@ public class RobotRescueHandler : MonoBehaviour
         {
             _rescueAmount++;
             Destroy(robot.gameObject);
+            rescueText.text = "Robots Seccourus: " + _rescueAmount;
         }
         _allRobots = new();
-        rescueText.text = "Robots Seccourus: " + _rescueAmount;
     }
 }

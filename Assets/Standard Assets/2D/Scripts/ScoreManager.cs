@@ -42,7 +42,8 @@ public class ScoreManager : MonoBehaviour
         _textTime.text = "";
     }
 
-    private IEnumerator LapTimerCoroutine() {
+    private IEnumerator LapTimerCoroutine()
+    {
         _isTiming = false;
         yield return new WaitForEndOfFrame();
         if (_timer != null) {

@@ -49,7 +49,7 @@ public class RobotRescue : MonoBehaviour
     {
         if (_index == 0)
         {
-            text.text = "Apportes-moi au point vert!";
+            text.text = "Apportes-moi à un CheckPoint!";
         }
         else
         {
