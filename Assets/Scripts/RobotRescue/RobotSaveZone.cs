@@ -4,7 +4,7 @@ public class RobotSaveZone : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && collision.gameObject.GetComponent<RobotRescueHandler>() != null)
         {
             collision.gameObject.GetComponent<RobotRescueHandler>().GainRobots();
         }
