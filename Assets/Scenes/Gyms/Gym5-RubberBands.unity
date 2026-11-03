@@ -171,6 +171,90 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1924951343}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1924951343}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1924951343}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Rubberband, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Rubberband, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Rubberband, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148814455829690323, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1844,7 +1928,7 @@ GameObject:
   - component: {fileID: 1765859816}
   - component: {fileID: 1765859815}
   - component: {fileID: 1765859818}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rubberband
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2021,7 +2105,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Rubberband
   sendDirection: {x: 0, y: 1}
-  rubberbandForce: 20
+  rubberbandForce: 50
+  maxTimeSec: 1
+  minJumpMod: 0.5
 --- !u!1 &2094053763
 GameObject:
   m_ObjectHideFlags: 0
