@@ -119383,8 +119383,12 @@ PrefabInstance:
       value: -1081400781
       objectReference: {fileID: 0}
     - target: {fileID: 8150520585497009449, guid: 1ba7364763c5d1045990733d1e359fce, type: 3}
+      propertyPath: m_text
+      value: "Garde Click Droit appuy\xE9 pour ouvrir le menu des Planeurs"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150520585497009449, guid: 1ba7364763c5d1045990733d1e359fce, type: 3}
       propertyPath: m_fontSize
-      value: 7.85
+      value: 7.2
       objectReference: {fileID: 0}
     - target: {fileID: 8150520585497009449, guid: 1ba7364763c5d1045990733d1e359fce, type: 3}
       propertyPath: m_margin.w

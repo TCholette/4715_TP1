@@ -116192,18 +116192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8568b3038a009d43e981a4efa6ebbe69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Rubberband
-  sendDirection: {x: 0, y: 1}
-  rubberbandForce: 50
-  inRubberband: 0
-  maxTimeSec: 1
-  minJumpMod: 0.5
-  horizontalExtraForce: 1.5
-  timer: {fileID: 537938225}
---- !u!4 &1924951354 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4787266529027892865, guid: 2ab458bca7e837d46b0345d173e9c0ee, type: 3}
-  m_PrefabInstance: {fileID: 317150078}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1939844404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -116319,11 +116307,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7855418758831391208, guid: 1a776d61ed6f6254c914e01211bb21d5, type: 3}
       propertyPath: m_text
-      value: "Bravo! C'est la fin de la pr\xE9sentation des boutons de lamcement"
+      value: Bravo!\nFin du gym
       objectReference: {fileID: 0}
     - target: {fileID: 7855418758831391208, guid: 1a776d61ed6f6254c914e01211bb21d5, type: 3}
       propertyPath: m_fontSize
-      value: 5.85
+      value: 8.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
