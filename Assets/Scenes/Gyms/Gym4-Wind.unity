@@ -358,7 +358,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8150520585497009449, guid: 1ba7364763c5d1045990733d1e359fce, type: 3}
       propertyPath: m_text
-      value: Le Vent peut pousser dans nimportequelle direction!
+      value: Le Vent peut pousser dans n'importe quelle direction!
       objectReference: {fileID: 0}
     - target: {fileID: 8150520585497009449, guid: 1ba7364763c5d1045990733d1e359fce, type: 3}
       propertyPath: m_fontSize
