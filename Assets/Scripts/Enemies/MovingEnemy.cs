@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class MovingEnemy : EnnemiBase
+public class MovingEnemy : MonoBehaviour
 {
     [SerializeField] protected Vector2[] pointsControles;
     [SerializeField] protected bool replay;

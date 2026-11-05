@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class LaserCollider : EnnemiBase
+public class LaserCollider : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
