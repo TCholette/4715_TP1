@@ -1,6 +1,5 @@
-using System;
+using System.Collections.Generic;
 using System.Collections;
-using UnityEditor.MemoryProfiler;
 using UnityEngine;
 
 
@@ -11,9 +10,10 @@ public enum ButtonMode
 }
 public class ButtonHandler: MonoBehaviour 
 {
-    [SerializeField] private ToggleWithButton target;
+    [SerializeField] private List<ToggleWithButton> targets;
+    private List<LineRenderer> _allLines = new();
     [SerializeField] private Animator anim;
-    [SerializeField] private LineRenderer line;
+    [SerializeField] private GameObject lineTemplate;
     [SerializeField] private LineRenderer timer;
     [SerializeField] private Transform connection;
     [SerializeField] private ButtonMode buttonMode;
@@ -24,15 +24,24 @@ public class ButtonHandler: MonoBehaviour
 
     private void Awake()
     {
-        line.SetPosition(0, connection.position);
-        line.SetPosition(1, target.connection.position);
-        line.startColor = Color.red;
-        line.endColor = Color.red;
+        foreach (ToggleWithButton target in targets)
+        {
+            LineRenderer line = Instantiate(lineTemplate, transform).GetComponent<LineRenderer>();
+            line.SetPosition(0, connection.position);
+            line.SetPosition(1, target.connection.position);
+            line.startColor = Color.red;
+            line.endColor = Color.red;
+            target.Setup(this);
+            _allLines.Add(line);
+        }
         if (startsEnabled)
         {
             Activate();
         }
-        target.Setup(this);
+        else
+        {
+            Deactivate();
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -55,13 +64,19 @@ public class ButtonHandler: MonoBehaviour
 
     public void Activate(bool isFirst = true)
     {
-        line.startColor = Color.green;
-        line.endColor = Color.green;
+        foreach (LineRenderer line in _allLines)
+        {
+            line.startColor = Color.green;
+            line.endColor = Color.green;
+        }
         anim.SetTrigger("Click");
         _isEnabled = true;
         if (isFirst)
         {
-            target.Activate();
+            foreach (ToggleWithButton target in targets)
+            {
+                target.Activate();
+            }
             if (buttonMode == ButtonMode.Timer && !startsEnabled)
             {
                 StartCoroutine(Timer());
@@ -71,13 +86,19 @@ public class ButtonHandler: MonoBehaviour
 
     public void Deactivate(bool isFirst = true)
     {
-        line.startColor = Color.red;
-        line.endColor = Color.red;
+        foreach (LineRenderer line in _allLines)
+        {
+            line.startColor = Color.red;
+            line.endColor = Color.red;
+        }
         anim.SetTrigger("Release");
         _isEnabled = false;
         if (isFirst)
         {
-            target.Deactivate();
+            foreach (ToggleWithButton target in targets)
+            {
+                target.Deactivate();
+            }
             if (buttonMode == ButtonMode.Timer && startsEnabled)
             {
                 StartCoroutine(Timer());

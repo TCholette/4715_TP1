@@ -4,6 +4,8 @@ using System.Collections.Generic;
 public class ToggleWithButton : MonoBehaviour
 {
     [SerializeField] public Transform connection;
+    [SerializeField] public bool isEnabledWhenActive;
+
     private List<ButtonHandler> allButtons = new();
     public void Activate()
     {
@@ -24,12 +26,12 @@ public class ToggleWithButton : MonoBehaviour
 
     protected virtual void Open()
     {
-        gameObject.SetActive(false);
+        gameObject.SetActive(isEnabledWhenActive);
     }
 
     protected virtual void Close()
     {
-        gameObject.SetActive(true);
+        gameObject.SetActive(!isEnabledWhenActive);
     }
 
     public virtual void Setup(ButtonHandler button)

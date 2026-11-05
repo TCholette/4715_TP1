@@ -681,7 +681,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3734857055350365186, guid: 1ba7364763c5d1045990733d1e359fce, type: 3}
       propertyPath: m_Name
-      value: TutorialTvBack (1)
+      value: TutorialTvArrow
       objectReference: {fileID: 0}
     - target: {fileID: 8150520585497009449, guid: 1ba7364763c5d1045990733d1e359fce, type: 3}
       propertyPath: m_text
@@ -181946,7 +181946,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3734857055350365186, guid: 1ba7364763c5d1045990733d1e359fce, type: 3}
       propertyPath: m_Name
-      value: TutorialTvBehind (7)
+      value: TutorialTvEnd
       objectReference: {fileID: 0}
     - target: {fileID: 6317877736195452840, guid: 1ba7364763c5d1045990733d1e359fce, type: 3}
       propertyPath: m_SortingLayer
@@ -182094,15 +182094,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3734857055350365186, guid: 1ba7364763c5d1045990733d1e359fce, type: 3}
       propertyPath: m_Name
-      value: TutorialTvBack
+      value: TutorialTvSpace
       objectReference: {fileID: 0}
     - target: {fileID: 8150520585497009449, guid: 1ba7364763c5d1045990733d1e359fce, type: 3}
       propertyPath: m_text
-      value: Le Planeur Vert te permet de faire des sauts muraux avec "espace"
+      value: Le Planeur Vert te permet de faire des sauts muraux en cliquant Espace
       objectReference: {fileID: 0}
     - target: {fileID: 8150520585497009449, guid: 1ba7364763c5d1045990733d1e359fce, type: 3}
       propertyPath: m_fontSize
-      value: 5.95
+      value: 5.85
       objectReference: {fileID: 0}
     - target: {fileID: 8150520585497009449, guid: 1ba7364763c5d1045990733d1e359fce, type: 3}
       propertyPath: m_margin.w
@@ -182937,7 +182937,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3734857055350365186, guid: 1ba7364763c5d1045990733d1e359fce, type: 3}
       propertyPath: m_Name
-      value: TutorialTvBack (2)
+      value: TutorialTvCling
       objectReference: {fileID: 0}
     - target: {fileID: 8150520585497009449, guid: 1ba7364763c5d1045990733d1e359fce, type: 3}
       propertyPath: m_text
@@ -183221,7 +183221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3734857055350365186, guid: 1ba7364763c5d1045990733d1e359fce, type: 3}
       propertyPath: m_Name
-      value: TutorialTvBack (3)
+      value: TutorialTvAD
       objectReference: {fileID: 0}
     - target: {fileID: 7946503417753419406, guid: 1ba7364763c5d1045990733d1e359fce, type: 3}
       propertyPath: m_LocalRotation.w

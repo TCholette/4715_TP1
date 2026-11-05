@@ -416,14 +416,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4430131573299549445}
-  - component: {fileID: 2827873946772764639}
   m_Layer: 5
   m_Name: Selector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4430131573299549445
 RectTransform:
   m_ObjectHideFlags: 0
@@ -446,28 +445,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2827873946772764639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2221089174290737271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c3c2c43437951b40b6a950c104627f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  _character: {fileID: 2666592849794100463}
-  _images:
-  - {fileID: 1865693743717851828}
-  - {fileID: 2612422946790319566}
-  - {fileID: 6418547875611119342}
-  _buttons:
-  - {fileID: 5317896591194585787}
-  - {fileID: 7785853407517854591}
-  - {fileID: 1892206591473804548}
-  _selectedIndex: 0
 --- !u!1 &2380731605204600712
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,6 +556,7 @@ GameObject:
   - component: {fileID: 7922019459043312345}
   - component: {fileID: 7389622941615975753}
   - component: {fileID: 5478746243471924801}
+  - component: {fileID: 4985639543545576845}
   m_Layer: 0
   m_Name: CirclePlayerCharacter
   m_TagString: Player
@@ -732,19 +710,14 @@ MonoBehaviour:
   sphereAnim: {fileID: 541958266204452132}
   m_MaxSpeed: 10
   m_JumpForce: 15
-  m_CrouchSpeed: 0.25
   m_AirControl: 1
   m_headCollider: {fileID: 848561660286845479}
   m_feetCollider: {fileID: 7922019459043312345}
   m_Deceleration: 100
   m_AirDeceleration: 20
   m_Acceleration: 100
-  m_ChargeSpeed: 10
-  m_MaxChargeForce: 30
-  m_ChargeIndicator: {fileID: 1426248983990767695}
   m_Glider: {fileID: 322722712739861022}
   m_Anim: {fileID: 8078043829899197986}
-  _glideSelectorMenu: {fileID: 2221089174290737271}
   m_Grounded: 0
   m_FacingRight: 1
   m_IsMoveDisabled: 0
@@ -926,6 +899,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5478746243471924801}
+        m_TargetAssemblyTypeName: Rubberband, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 351f2ccd-1f9f-44bf-9bec-d62ac5c5f408
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
@@ -934,9 +919,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Look[/Mouse/delta]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2666592849794100463}
-        m_TargetAssemblyTypeName: UnityStandardAssets._2D.PlatformerCharacter2D,
-          Assembly-CSharp-firstpass
+      - m_Target: {fileID: 4985639543545576845}
+        m_TargetAssemblyTypeName: GliderSelector, Assembly-CSharp
         m_MethodName: OnGlideSwitch
         m_Mode: 0
         m_Arguments:
@@ -962,6 +946,18 @@ MonoBehaviour:
       - m_Target: {fileID: 2666592849794100463}
         m_TargetAssemblyTypeName: UnityStandardAssets._2D.PlatformerCharacter2D,
           Assembly-CSharp-firstpass
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5478746243471924801}
+        m_TargetAssemblyTypeName: Rubberband, Assembly-CSharp
         m_MethodName: OnJump
         m_Mode: 0
         m_Arguments:
@@ -1032,9 +1028,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Throw[/Mouse/rightButton,/Keyboard/enter]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2666592849794100463}
-        m_TargetAssemblyTypeName: UnityStandardAssets._2D.PlatformerCharacter2D,
-          Assembly-CSharp-firstpass
+      - m_Target: {fileID: 4985639543545576845}
+        m_TargetAssemblyTypeName: GliderSelector, Assembly-CSharp
         m_MethodName: OnGlideSwitchMenu
         m_Mode: 0
         m_Arguments:
@@ -1154,6 +1149,29 @@ MonoBehaviour:
   minJumpMod: 0.5
   horizontalExtraForce: 1.5
   timer: {fileID: 2524607180165377127}
+--- !u!114 &4985639543545576845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2827239048906252384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3c2c43437951b40b6a950c104627f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  _character: {fileID: 2666592849794100463}
+  _images:
+  - {fileID: 1865693743717851828}
+  - {fileID: 2612422946790319566}
+  - {fileID: 6418547875611119342}
+  _buttons:
+  - {fileID: 5317896591194585787}
+  - {fileID: 7785853407517854591}
+  - {fileID: 1892206591473804548}
+  _selectedIndex: 0
+  _selector: {fileID: 2221089174290737271}
 --- !u!1 &2888932546084368778
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,7 +1599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee3ceb6a0ea0b64ea0eb68603674acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass::GliderSelectorButton
-  _selector: {fileID: 2827873946772764639}
+  _selector: {fileID: 4985639543545576845}
   _glider: {fileID: 6092248053806866988}
 --- !u!114 &1402308179990520333
 MonoBehaviour:
@@ -2267,7 +2285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee3ceb6a0ea0b64ea0eb68603674acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass::GliderSelectorButton
-  _selector: {fileID: 2827873946772764639}
+  _selector: {fileID: 4985639543545576845}
   _glider: {fileID: 322722712739861022}
 --- !u!1 &6380755014822577362
 GameObject:
@@ -2665,7 +2683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee3ceb6a0ea0b64ea0eb68603674acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp-firstpass::GliderSelectorButton
-  _selector: {fileID: 2827873946772764639}
+  _selector: {fileID: 4985639543545576845}
   _glider: {fileID: 1342941862598757617}
 --- !u!114 &7533279269771054231
 MonoBehaviour:

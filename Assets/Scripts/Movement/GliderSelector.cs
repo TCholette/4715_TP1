@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityStandardAssets._2D;
 
@@ -12,13 +13,13 @@ public class GliderSelector : MonoBehaviour
     [SerializeField] private List<GliderSelectorButton> _buttons;
 
     [SerializeField] private int _selectedIndex = 0;
+    [SerializeField] private GameObject _selector;
 
 
-    private void Awake() {
+    public void Awake() {
         foreach(GliderSelectorButton button in _buttons) {
             button.Init();
-        }
-        gameObject.SetActive(false);        
+        }   
     }
 
     public void SetActiveGlider(GameObject glider, Sprite sprite ) {
@@ -37,4 +38,23 @@ public class GliderSelector : MonoBehaviour
         _buttons[_selectedIndex].SetGlider();
     }
 
+    public void OnGlideSwitchMenu(InputAction.CallbackContext input)
+    {
+        if (input.performed)
+        {
+            _selector.SetActive(true);
+        }
+        else if (input.canceled)
+        {
+            _selector.SetActive(false);
+        }
+    }
+
+    public void OnGlideSwitch(InputAction.CallbackContext input)
+    {
+        if (input.performed)
+        {
+            SwitchToNextGlider((int)input.ReadValue<float>());
+        }
+    }
 }

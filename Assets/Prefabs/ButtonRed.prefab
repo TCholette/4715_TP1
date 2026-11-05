@@ -411,9 +411,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0fddaf54c3a4b44dbdf857e9ebc4d9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonHandler
-  target: {fileID: 0}
+  targets: []
   anim: {fileID: 8553396821627230630}
-  line: {fileID: 7854206888396435236}
+  lineTemplate: {fileID: 7313449648144061105, guid: 7656e629601973e41804620fc24abc8a, type: 3}
   timer: {fileID: 4367470917572880683}
   connection: {fileID: 1277172193991705291}
   buttonMode: 1

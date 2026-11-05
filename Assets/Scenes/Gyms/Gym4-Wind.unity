@@ -213,7 +213,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3375637014805583822, guid: 1a776d61ed6f6254c914e01211bb21d5, type: 3}
       propertyPath: m_Name
-      value: TutorialTv (2)
+      value: TutorialTvSide
       objectReference: {fileID: 0}
     - target: {fileID: 6693760754335357047, guid: 1a776d61ed6f6254c914e01211bb21d5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -355,7 +355,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3375637014805583822, guid: 1a776d61ed6f6254c914e01211bb21d5, type: 3}
       propertyPath: m_Name
-      value: TutorialTv (1)
+      value: TutorialTvDown
       objectReference: {fileID: 0}
     - target: {fileID: 6693760754335357047, guid: 1a776d61ed6f6254c914e01211bb21d5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -710,6 +710,18 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 18fcd494ab71841d695135246693eb3a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: 18fcd494ab71841d695135246693eb3a, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: 18fcd494ab71841d695135246693eb3a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: 18fcd494ab71841d695135246693eb3a, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -651152073
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -53221,7 +53233,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3375637014805583822, guid: 1a776d61ed6f6254c914e01211bb21d5, type: 3}
       propertyPath: m_Name
-      value: TutorialTv (3)
+      value: TutorialTvEnd
       objectReference: {fileID: 0}
     - target: {fileID: 6693760754335357047, guid: 1a776d61ed6f6254c914e01211bb21d5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -53289,7 +53301,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3375637014805583822, guid: 1a776d61ed6f6254c914e01211bb21d5, type: 3}
       propertyPath: m_Name
-      value: TutorialTv
+      value: TutorialTvUp
       objectReference: {fileID: 0}
     - target: {fileID: 6693760754335357047, guid: 1a776d61ed6f6254c914e01211bb21d5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -53333,11 +53345,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7855418758831391208, guid: 1a776d61ed6f6254c914e01211bb21d5, type: 3}
       propertyPath: m_text
-      value: Utiliser le planeur dans du vent te pousse vers le haut!
+      value: Utiliser le\nPlaneur (Gym_1)\ndans du vent te pousse vers le haut!
       objectReference: {fileID: 0}
     - target: {fileID: 7855418758831391208, guid: 1a776d61ed6f6254c914e01211bb21d5, type: 3}
       propertyPath: m_fontSize
-      value: 5.85
+      value: 6.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855418758831391208, guid: 1a776d61ed6f6254c914e01211bb21d5, type: 3}
+      propertyPath: m_margin.w
+      value: -0.47686958
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855418758831391208, guid: 1a776d61ed6f6254c914e01211bb21d5, type: 3}
+      propertyPath: m_margin.y
+      value: -0.32787895
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
