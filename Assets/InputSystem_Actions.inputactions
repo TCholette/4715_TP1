@@ -625,7 +625,7 @@
                 {
                     "name": "negative",
                     "id": "03062a1b-84e5-45c2-838a-91190777a76f",
-                    "path": "<Mouse>/scroll/up",
+                    "path": "<Mouse>/scroll/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -636,7 +636,7 @@
                 {
                     "name": "positive",
                     "id": "5b480351-2fd0-45e7-9632-01e250ef34e1",
-                    "path": "<Mouse>/scroll/down",
+                    "path": "<Mouse>/scroll/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
