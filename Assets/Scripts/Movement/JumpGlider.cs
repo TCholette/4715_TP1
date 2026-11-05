@@ -15,7 +15,6 @@ public class JumpGlider : AbsGlider
         if (_maxJumpCount > _jumpCount && !_character.GetComponent<Rubberband>().inRubberband)
         {
             _jumpCount++;
-            _character.m_Anim.SetBool("Ground", false);
             _character.Rigidbody.linearVelocity = new Vector2(_character.Rigidbody.linearVelocityX, _character.m_JumpForce);
         }
     }

@@ -1,9 +1,7 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Wind : MonoBehaviour
 {
-    [SerializeField] private float originGravityScale = 4f;
     [SerializeField] private Vector2 windDirection = Vector2.up;
     [SerializeField] private float startWindForce = 40f;
     [SerializeField] private float windForce = 40f;

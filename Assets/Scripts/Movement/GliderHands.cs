@@ -1,7 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityStandardAssets._2D;
-
 public class GliderHands : AbsGlider
 {
 
@@ -123,7 +121,6 @@ public class GliderHands : AbsGlider
                 _character.m_FacingRight = true;
                 _character.Rigidbody.linearVelocity = new Vector2(_wallJumpHorizontalForce, _character.m_JumpForce);
             }
-            _character.m_Anim.SetBool("Ground", false);
         }
     }
 

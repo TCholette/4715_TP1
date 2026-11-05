@@ -1,9 +1,7 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using UnityStandardAssets._2D;
 
 public class GliderSelector : MonoBehaviour
 {

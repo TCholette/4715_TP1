@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -14,6 +13,8 @@ public class RobotRescue : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float baseDist;
     [SerializeField] private TextMeshPro text;
+    [SerializeField] private Animator anim;
+
 
     private void Awake()
     {
@@ -28,15 +29,6 @@ public class RobotRescue : MonoBehaviour
             FollowPlayer(collision.gameObject);
         }
     }
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Player"))
-    //    {
-    //        FollowPlayer(collision.gameObject);
-    //    }
-    //}
-
     public void FollowPlayer(GameObject player)
     {
         _player = player;
@@ -47,9 +39,10 @@ public class RobotRescue : MonoBehaviour
 
     private IEnumerator FollowTimer()
     {
+        anim.SetBool("isFollowing", true);
         if (_index == 0)
         {
-            text.text = "Apportes-moi à un CheckPoint!";
+            text.text = "Apporte-moi à un CheckPoint!";
         }
         else
         {
@@ -60,12 +53,13 @@ public class RobotRescue : MonoBehaviour
             float dist = Vector3.Distance(_player.transform.position, transform.position);
             float test = Mathf.Exp(dist / (_index+1)) / Mathf.Exp(speed);
             transform.position = Vector3.Lerp(transform.position, _player.transform.position,test);
-            yield return new WaitForSeconds(0.001f);
+            yield return null;
         }
     }
 
     public void BringBack()
     {
+        anim.SetBool("isFollowing", false);
         text.text = "Nooon!";
         if (!_isResetting)
         {
@@ -87,6 +81,6 @@ public class RobotRescue : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
         _isResetting = false;
-        text.text = "À l'aide!";
+        text.text = "!";
     }
 }

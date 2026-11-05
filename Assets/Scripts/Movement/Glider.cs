@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class Glider : AbsGlider
 {
     public override void FixedUpdateStrategy() {

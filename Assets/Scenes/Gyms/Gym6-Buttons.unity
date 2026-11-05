@@ -27750,6 +27750,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButtonYellow (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8668679675209751221, guid: e28cff15a557b5c4f972bb7245a566c5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1175051552635445218, guid: e28cff15a557b5c4f972bb7245a566c5, type: 3}
@@ -145913,14 +145917,6 @@ PrefabInstance:
     - target: {fileID: 599417319408778345, guid: e28cff15a557b5c4f972bb7245a566c5, type: 3}
       propertyPath: m_SortingLayer
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 599417319408778345, guid: e28cff15a557b5c4f972bb7245a566c5, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 599417319408778345, guid: e28cff15a557b5c4f972bb7245a566c5, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1081400781
       objectReference: {fileID: 0}
     - target: {fileID: 1471333545310169761, guid: e28cff15a557b5c4f972bb7245a566c5, type: 3}
       propertyPath: target

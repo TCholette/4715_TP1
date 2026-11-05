@@ -69,7 +69,7 @@ public class ButtonHandler: MonoBehaviour
             line.startColor = Color.green;
             line.endColor = Color.green;
         }
-        anim.SetTrigger("Click");
+        anim.SetBool("isClicking", true);
         _isEnabled = true;
         if (isFirst)
         {
@@ -91,7 +91,7 @@ public class ButtonHandler: MonoBehaviour
             line.startColor = Color.red;
             line.endColor = Color.red;
         }
-        anim.SetTrigger("Release");
+        anim.SetBool("isClicking", false);
         _isEnabled = false;
         if (isFirst)
         {

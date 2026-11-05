@@ -1,8 +1,4 @@
-using JetBrains.Annotations;
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets._2D
 {

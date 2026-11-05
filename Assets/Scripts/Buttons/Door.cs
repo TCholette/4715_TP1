@@ -7,12 +7,12 @@ public class Door : ToggleWithButton
 
     protected override void Open()
     {
-        anim.SetTrigger("Open");
+        anim.SetBool("isOpen", true);
     }
 
     protected override void Close()
     {
-        anim.SetTrigger("Close");
+        anim.SetBool("isOpen", false);
         collision.enabled = true;
     }
 

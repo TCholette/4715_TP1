@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityStandardAssets._2D;
 
 public abstract class AbsGlider : MonoBehaviour
 {
