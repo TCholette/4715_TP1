@@ -11,6 +11,7 @@ public class GliderHands : AbsGlider
     [SerializeField] public float m_WallGrabRegenCooldownTime = 0.5f;
     [SerializeField] public Animator _handAnim;
     [SerializeField] private Collider2D _collider;
+    private const float GRAB_GRAVITY_COMPENSATION = 10f;
 
 
     private bool _isTryingGrab = false;
@@ -30,7 +31,7 @@ public class GliderHands : AbsGlider
         }
         if (_isWallGrabbing) {
             _character.Rigidbody.linearVelocityX += _wallDirection * 0.25f;
-            _character.Rigidbody.AddForceY(10f * 4);
+            _character.Rigidbody.AddForceY(GRAB_GRAVITY_COMPENSATION * _character.Rigidbody.gravityScale);
         }
         else {
             _character.Rigidbody.linearVelocityX -= _wallDirection * 0.25f;

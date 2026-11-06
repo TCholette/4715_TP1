@@ -77,7 +77,7 @@ public class RobotRescue : MonoBehaviour
         {
             transform.position = Vector3.Lerp(basePos, _spawn, i/100f);
             i++;
-            yield return new WaitForSeconds(0.01f);
+            yield return null;
         }
         _isResetting = false;
         text.text = "!";

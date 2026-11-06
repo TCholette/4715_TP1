@@ -19,7 +19,6 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager Instance { get { return _instance; } }
     private void Awake()
     {
-        // DontDestroyOnLoad(gameObject); 
         _instance = this;
     }
 

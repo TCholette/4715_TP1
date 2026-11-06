@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Rubberband : MonoBehaviour
 {
-    [SerializeField] private Vector2 sendDirection = Vector2.up;
     [SerializeField] private float rubberbandForce = 50;
     [HideInInspector] public bool isInRubberband = false;
     private bool jumped = false;
@@ -51,14 +50,6 @@ public class Rubberband : MonoBehaviour
         {
             isInRubberband = false;
         }
-    }
-
-    public void OnMove(InputAction.CallbackContext input)
-    {
-        //if (input.ReadValue<Vector2>().magnitude > 0)
-        //{
-        //    sendDirection = input.ReadValue<Vector2>();
-        //}
     }
 
     public void OnJump(InputAction.CallbackContext input)

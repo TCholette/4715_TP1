@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RobotRescueHandler : MonoBehaviour
 {
-    const int SCORE_GAIN_PER_ROBOT = 250;
+    [SerializeField] private int scoreGainPerRobot = 250;
     [SerializeField] private TextMeshProUGUI rescueText;
     private int _rescueAmount = 0;
     private List<RobotRescue> _allRobots = new();
@@ -30,7 +30,7 @@ public class RobotRescueHandler : MonoBehaviour
             _rescueAmount++;
             Destroy(robot.gameObject);
             rescueText.text = "Robots Seccourus: " + _rescueAmount;
-            ScoreManager.Instance.AddScore(SCORE_GAIN_PER_ROBOT);
+            ScoreManager.Instance.AddScore(scoreGainPerRobot);
         }
         _allRobots = new();
     }

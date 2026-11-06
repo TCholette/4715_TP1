@@ -6,7 +6,7 @@ public class LaserCollider : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.transform.position = CheckPointManager2.currentActiveCheckPoint.gameObject.transform.position;
+            collision.gameObject.transform.position = CheckPointManager.currentActiveCheckPoint.gameObject.transform.position;
         }
     }
 }

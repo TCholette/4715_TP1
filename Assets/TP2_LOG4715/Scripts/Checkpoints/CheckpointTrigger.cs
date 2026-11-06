@@ -19,7 +19,7 @@ public class CheckpointTrigger : MonoBehaviour
     {
         if (_isStartOfLevel)
         {
-            CheckPointManager2.currentActiveCheckPoint = this;
+            CheckPointManager.currentActiveCheckPoint = this;
             sprite.sprite = activated;
         }
     }
@@ -27,9 +27,9 @@ public class CheckpointTrigger : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            CheckPointManager2.currentActiveCheckPoint.Deactivate();
+            CheckPointManager.currentActiveCheckPoint.Deactivate();
             sprite.sprite = activated;
-            CheckPointManager2.currentActiveCheckPoint = this;
+            CheckPointManager.currentActiveCheckPoint = this;
             if (_canBeActivated)
             {
                 _canBeActivated = false;

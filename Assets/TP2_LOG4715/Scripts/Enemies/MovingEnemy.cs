@@ -2,25 +2,25 @@ using UnityEngine;
 
 public class MovingEnemy : MonoBehaviour
 {
-    [SerializeField] protected Vector2[] pointsControles;
+    [SerializeField] protected Transform[] controlPoints;
     [SerializeField] protected bool replay;
-    [SerializeField] protected int cycle = 0;//0 = infinie
+    [SerializeField] protected int cycle = 0;
     [SerializeField] protected int nextControlPointIndex = 0;
-    [SerializeField] protected float vitesse;
+    [SerializeField] protected float speed;
     [SerializeField] protected float slowDownDistance = 1f;
 
 
     bool rewind = false;
     void Update()
     {
-        if (vitesse == 0 || cycle == 0)
+        if (speed == 0 || cycle == 0)
             return;
-        Vector2 target = pointsControles[nextControlPointIndex];
+        Vector2 target = controlPoints[nextControlPointIndex].position;
         Vector2 currentPos = this.transform.position;
 
         Vector2 dir = target - currentPos;
         float dirMagnitude = dir.magnitude;
-        float lerpedSpeed = Mathf.Lerp(0, vitesse, dirMagnitude / slowDownDistance);
+        float lerpedSpeed = Mathf.Lerp(0, speed, dirMagnitude / slowDownDistance);
         this.transform.position = currentPos + dir.normalized * lerpedSpeed * Time.deltaTime;
 
         float checkPointTreeshold = 0.25f;
@@ -28,7 +28,7 @@ public class MovingEnemy : MonoBehaviour
         {
             if (replay)
             {
-                if (nextControlPointIndex + 1 == pointsControles.Length)
+                if (nextControlPointIndex + 1 == controlPoints.Length)
                 {
                     rewind = true;
                 }
@@ -48,7 +48,7 @@ public class MovingEnemy : MonoBehaviour
 
             if (cycle >= 0)
             {
-                if (nextControlPointIndex + 1 == pointsControles.Length)
+                if (nextControlPointIndex + 1 == controlPoints.Length)
                 {
                     cycle--;
                 }
@@ -64,7 +64,7 @@ public class MovingEnemy : MonoBehaviour
             }
             else
             {
-                nextControlPointIndex = (nextControlPointIndex + 1) % pointsControles.Length;
+                nextControlPointIndex = (nextControlPointIndex + 1) % controlPoints.Length;
             }
         }
     }
@@ -73,7 +73,7 @@ public class MovingEnemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.transform.position = CheckPointManager2.currentActiveCheckPoint.gameObject.transform.position;
+            collision.gameObject.transform.position = CheckPointManager.currentActiveCheckPoint.gameObject.transform.position;
         }
     }
 }
