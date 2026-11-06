@@ -7,6 +7,7 @@ public abstract class AbsGlider : MonoBehaviour
     [HideInInspector] public bool isEnabled = false;
     [HideInInspector] public bool isGliding = false;
     public float jumpForceMultiplier = 1f;
+    protected static float _jumpCount = 0;
 
     protected PlatformerCharacter2D _character;
 
@@ -15,6 +16,12 @@ public abstract class AbsGlider : MonoBehaviour
     public void Init(PlatformerCharacter2D character) {
         if (_character == null) {
             _character = character;
+        }
+    }
+
+    protected void ResetJumps() {
+        if ((_character.GetComponent<Rubberband>().isInRubberband || _character.IsGrounded)) {
+            _jumpCount = 0;
         }
     }
 

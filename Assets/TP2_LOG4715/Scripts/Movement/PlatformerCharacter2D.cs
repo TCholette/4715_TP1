@@ -62,7 +62,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_gliderMechanic.isEnabled) _gliderMechanic.FixedUpdateStrategy();
+        _gliderMechanic.FixedUpdateStrategy();
 
         Move(m_MoveDirection);
         Jump();
@@ -84,7 +84,7 @@ public class PlatformerCharacter2D : MonoBehaviour
             return;
         }
 
-        if (_gliderMechanic.isEnabled) _gliderMechanic.MoveStrategy(direction);
+        _gliderMechanic.MoveStrategy(direction);
 
         if (direction != 0)
         {
@@ -143,7 +143,7 @@ public class PlatformerCharacter2D : MonoBehaviour
         if (input.performed)
         {
             m_IsJumping = true;
-            if (_gliderMechanic.isEnabled) _gliderMechanic.JumpStrategy();
+           _gliderMechanic.JumpStrategy();
         }
         else if (input.canceled)
         {

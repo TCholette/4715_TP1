@@ -1,7 +1,10 @@
 public class Glider : AbsGlider
 {
     public override void FixedUpdateStrategy() {
-        TryGlide();
+        ResetJumps();
+        if (isEnabled) {
+            TryGlide();
+        }
     }
 
     public override void JumpStrategy() {
