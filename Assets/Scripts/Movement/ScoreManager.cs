@@ -23,6 +23,12 @@ public class ScoreManager : MonoBehaviour
         _instance = this;
     }
 
+    public void AddScore(int score) {
+        _currentScore += score;
+        _textScore.text = "Score: " + _currentScore.ToString();
+
+    }
+
     public int SnapshotScoreGain()
     {
         float effectiveTimeS = Mathf.Max(0, _timeS - _timeTolerance);
