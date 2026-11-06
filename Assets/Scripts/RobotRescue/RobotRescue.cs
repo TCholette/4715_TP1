@@ -10,8 +10,7 @@ public class RobotRescue : MonoBehaviour
     private GameObject _player;
     private int _index = 0;
 
-    [SerializeField] private float speed;
-    [SerializeField] private float baseDist;
+    [SerializeField] private float robotSpeed;
     [SerializeField] private TextMeshPro text;
     [SerializeField] private Animator anim;
 
@@ -51,7 +50,7 @@ public class RobotRescue : MonoBehaviour
         while (_isFollowing)
         {
             float dist = Vector3.Distance(_player.transform.position, transform.position);
-            float test = Mathf.Exp(dist / (_index+1)) / Mathf.Exp(speed);
+            float test = Mathf.Exp(dist / (_index+1)) / Mathf.Exp(robotSpeed);
             transform.position = Vector3.Lerp(transform.position, _player.transform.position,test);
             yield return null;
         }

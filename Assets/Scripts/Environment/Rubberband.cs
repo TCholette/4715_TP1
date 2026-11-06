@@ -7,7 +7,7 @@ public class Rubberband : MonoBehaviour
 {
     [SerializeField] private Vector2 sendDirection = Vector2.up;
     [SerializeField] private float rubberbandForce = 50;
-    public bool inRubberband = false;
+    [HideInInspector] public bool isInRubberband = false;
     private bool jumped = false;
     [SerializeField] private float maxTimeSec = 1;
     [SerializeField] private float minJumpMod = 0.5f;
@@ -31,7 +31,7 @@ public class Rubberband : MonoBehaviour
                 }
                 StartCoroutine(Timer());
             }
-            inRubberband = true;
+            isInRubberband = true;
             jumped = false;
         }
     }
@@ -49,7 +49,7 @@ public class Rubberband : MonoBehaviour
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("rubberband"))
         {
-            inRubberband = false;
+            isInRubberband = false;
         }
     }
 
@@ -67,7 +67,7 @@ public class Rubberband : MonoBehaviour
         if (input.performed)
         {
             _isJumping = true;
-            if (inRubberband)
+            if (isInRubberband)
             {
                 if (stretchRoutine != null)
                 {
@@ -80,7 +80,7 @@ public class Rubberband : MonoBehaviour
         if (input.canceled)
         {
             _isJumping = false;
-            if (inRubberband)
+            if (isInRubberband)
             {
                 if (stretchRoutine != null)
                 {

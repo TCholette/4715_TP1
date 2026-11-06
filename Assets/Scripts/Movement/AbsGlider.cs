@@ -1,11 +1,14 @@
+using System;
+using Unity.Properties;
 using UnityEngine;
 
 public abstract class AbsGlider : MonoBehaviour
 {
-    public bool isEnabled = false;
-    protected PlatformerCharacter2D _character;
-    public bool isGliding = false;
+    [HideInInspector] public bool isEnabled = false;
+    [HideInInspector] public bool isGliding = false;
     public float jumpForceMultiplier = 1f;
+
+    protected PlatformerCharacter2D _character;
 
     [SerializeField] private float stabilisationSpeed = 2f;
     [SerializeField] protected float _gliderMaxDescentSpeed = 100;
