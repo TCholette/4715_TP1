@@ -8,7 +8,6 @@ public class PlatformerCharacter2D : MonoBehaviour
     [SerializeField] private float m_MaxSpeed = 10f;
     public float MaxSpeed { get { return m_MaxSpeed; } }
     [SerializeField] public float m_JumpForce = 400f;
-    [SerializeField] private bool m_AirControl = false;
     [SerializeField] public Collider2D m_headCollider;
     [SerializeField] public Collider2D m_feetCollider;
     [SerializeField] public float m_Deceleration;
@@ -87,7 +86,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 
         if (_gliderMechanic.isEnabled) _gliderMechanic.MoveStrategy(direction);
 
-        if (direction != 0 && (m_Grounded || m_AirControl))
+        if (direction != 0)
         {
             sphereAnim.SetBool("isWalking", true);
             if (m_Grounded)
