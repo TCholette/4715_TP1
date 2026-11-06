@@ -13,7 +13,7 @@ public class ToggleWithButton : MonoBehaviour
         {
             button.Activate(false);
         }
-        if (isEnabledWhenActive)
+        if (!isEnabledWhenActive)
         {
             Open();
         }
@@ -28,7 +28,7 @@ public class ToggleWithButton : MonoBehaviour
         {
             button.Deactivate(false);
         }
-        if (isEnabledWhenActive)
+        if (!isEnabledWhenActive)
         {
             Close();
         }
