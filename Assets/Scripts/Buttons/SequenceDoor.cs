@@ -9,7 +9,7 @@ public class SequenceDoor : Door
         collision.enabled = false;
         if (next != null)
         {
-            next.Activate();
+            next.Open();
         }
 
     }
@@ -18,7 +18,7 @@ public class SequenceDoor : Door
         collision.enabled = true;
         if (next != null)
         {
-            next.Deactivate();
+            next.Close();
         }
     }
 }

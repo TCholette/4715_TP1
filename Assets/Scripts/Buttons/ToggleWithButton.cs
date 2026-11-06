@@ -13,7 +13,14 @@ public class ToggleWithButton : MonoBehaviour
         {
             button.Activate(false);
         }
-        Open();
+        if (isEnabledWhenActive)
+        {
+            Open();
+        }
+        else
+        {
+            Close();
+        }
     }
     public void Deactivate()
     {
@@ -21,17 +28,24 @@ public class ToggleWithButton : MonoBehaviour
         {
             button.Deactivate(false);
         }
-        Close();
+        if (isEnabledWhenActive)
+        {
+            Close();
+        }
+        else
+        {
+            Open();
+        }
     }
 
     protected virtual void Open()
     {
-        gameObject.SetActive(isEnabledWhenActive);
+        gameObject.SetActive(false);
     }
 
     protected virtual void Close()
     {
-        gameObject.SetActive(!isEnabledWhenActive);
+        gameObject.SetActive(true);
     }
 
     public virtual void Setup(ButtonHandler button)
