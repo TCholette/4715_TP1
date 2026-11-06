@@ -57,7 +57,6 @@ public class GliderSelector : MonoBehaviour
     }
 
     public void OnNumberedGlideSwitch(InputAction.CallbackContext input) {
-        Debug.Log(input.ReadValue<float>());
         if (input.performed) {
             _selectedIndex = (int)input.ReadValue<float>();
             _buttons[_selectedIndex].SetGlider();

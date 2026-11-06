@@ -77,10 +77,10 @@ public class ButtonHandler: MonoBehaviour
             {
                 target.Activate();
             }
-            if (buttonMode == ButtonMode.Timer && !startsEnabled)
-            {
-                StartCoroutine(Timer());
-            }
+        }
+        if (buttonMode == ButtonMode.Timer && !startsEnabled)
+        {
+            StartCoroutine(Timer());
         }
     }
 
@@ -99,10 +99,10 @@ public class ButtonHandler: MonoBehaviour
             {
                 target.Deactivate();
             }
-            if (buttonMode == ButtonMode.Timer && startsEnabled)
-            {
-                StartCoroutine(Timer());
-            }
+        }
+        if (buttonMode == ButtonMode.Timer && startsEnabled)
+        {
+            StartCoroutine(Timer());
         }
     }
 

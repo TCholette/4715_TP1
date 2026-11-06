@@ -71,6 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
   connection: {fileID: 6388750843233729381}
+  isEnabledWhenActive: 0
   anim: {fileID: 5107186577496536168}
   collision: {fileID: 8826019563527744409}
 --- !u!1 &3964322639263955308
@@ -259,8 +260,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -651152073
-  m_SortingLayer: 3
+  m_SortingLayerID: 2109879181
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5213229242370633579, guid: 6c2a280d4f76b0e459f76c82286cf475, type: 3}
