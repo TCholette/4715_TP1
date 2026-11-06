@@ -16,17 +16,17 @@ public class PlatformerCharacter2D : MonoBehaviour
     [SerializeField] public float m_Acceleration;
 
     [SerializeField] private GameObject m_Glider;
-    [SerializeField] private bool m_Grounded;
+    private bool m_Grounded;
     private Rigidbody2D m_Rigidbody2D;
     public Rigidbody2D Rigidbody { get { return m_Rigidbody2D; } }
 
-    public bool m_FacingRight = true;
+    [HideInInspector] public bool m_FacingRight = true;
 
     private bool m_IsJumping = false;
 
     private float m_MoveDirection = 0f;
 
-    public bool m_IsMoveDisabled = false;
+    [HideInInspector] public bool m_IsMoveDisabled = false;
 
     private AbsGlider _gliderMechanic;
 

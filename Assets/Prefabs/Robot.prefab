@@ -153,8 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be2964248e63ee841aff69aae9dc6d6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RobotRescue
-  speed: 4
-  baseDist: 0
+  robotSpeed: 6
   text: {fileID: 2182568210087884741}
   anim: {fileID: 2981133396743334184}
 --- !u!95 &2981133396743334184
