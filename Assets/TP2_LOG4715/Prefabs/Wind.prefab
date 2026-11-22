@@ -196,8 +196,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 2109879181
-  m_SortingLayer: 5
+  m_SortingLayerID: -1081400781
+  m_SortingLayer: 2
   m_SortingOrder: 3
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1361503708, guid: fb303ddbe9c0d2243b8517eb827854cb, type: 3}
@@ -222,7 +222,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b43030f35e061872a03280c110822b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  originGravityScale: 4
   windDirection: {x: 0, y: 1}
   startWindForce: 400
   windForce: 20

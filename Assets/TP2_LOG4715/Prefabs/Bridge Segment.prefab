@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4475696624053202014}
   - component: {fileID: 4475696624040823390}
   - component: {fileID: 4722651528950403289}
-  - component: {fileID: 3622633796403934462}
+  - component: {fileID: 3198088302300439606}
   - component: {fileID: 4427400796243351830}
   m_Layer: 0
   m_Name: Bridge Segment
@@ -140,7 +140,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3622633796403934462
+--- !u!114 &3198088302300439606
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
