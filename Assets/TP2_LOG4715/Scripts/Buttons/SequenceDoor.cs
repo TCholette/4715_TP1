@@ -6,7 +6,10 @@ public class SequenceDoor : Door
 
     public override void EndOpen()
     {
-        collision.enabled = false;
+        if (collision != null)
+        {
+            collision.enabled = false;
+        }
         if (next != null)
         {
             next.Open();
@@ -15,7 +18,10 @@ public class SequenceDoor : Door
     }
     public void EndClose()
     {
-        collision.enabled = true;
+        if (collision != null)
+        {
+            collision.enabled = true;
+        }
         if (next != null)
         {
             next.Close();

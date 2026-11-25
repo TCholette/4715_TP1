@@ -13,11 +13,17 @@ public class Door : ToggleWithButton
     protected override void Close()
     {
         anim.SetBool("isOpen", false);
-        collision.enabled = true;
+        if (collision != null)
+        {
+            collision.enabled = true;
+        }
     }
 
     public virtual void EndOpen()
     {
-        collision.enabled = false;
+        if (collision != null)
+        {
+            collision.enabled = false;
+        }
     }
 }

@@ -199,7 +199,7 @@ MonoBehaviour:
   _wallFallMultiplier: -0.4
   _wallJumpHorizontalForce: 10
   m_WallJumpMoveDisableTime: 0.25
-  m_WallGrabRegenCooldownTime: 1
+  m_WallGrabRegenCooldownTime: 100
   _handAnim: {fileID: 5038701199636794146}
   _collider: {fileID: 1938802282101768463}
 --- !u!1 &2221089174290737271
@@ -348,6 +348,7 @@ GameObject:
   - component: {fileID: 7389622941615975753}
   - component: {fileID: 5478746243471924801}
   - component: {fileID: 4985639543545576845}
+  - component: {fileID: 5701016271366000706}
   m_Layer: 0
   m_Name: CirclePlayerCharacter
   m_TagString: Player
@@ -418,14 +419,12 @@ MonoBehaviour:
   sphereAnim: {fileID: 541958266204452132}
   m_MaxSpeed: 10
   m_JumpForce: 15
-  m_AirControl: 1
   m_headCollider: {fileID: 848561660286845479}
   m_feetCollider: {fileID: 7922019459043312345}
   m_Deceleration: 100
   m_AirDeceleration: 20
   m_Acceleration: 100
   m_Glider: {fileID: 322722712739861022}
-  m_Grounded: 0
   m_FacingRight: 1
   m_IsMoveDisabled: 0
 --- !u!61 &848561660286845479
@@ -741,8 +740,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.8182361, y: -0.0918853}
-      - {x: -0.8115306, y: -0.107684374}
+    - - {x: 0.5682361, y: -0.0918853}
+      - {x: -0.5615306, y: -0.107684374}
       - {x: -0.5198755, y: -0.40307304}
       - {x: -0.19056955, y: -0.5511817}
       - {x: 0.19366337, y: -0.5536282}
@@ -760,6 +759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1891ca61a04f244ba20531a79e8712d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RobotRescueHandler
+  scoreGainPerRobot: 250
   rescueText: {fileID: 0}
 --- !u!114 &5478746243471924801
 MonoBehaviour:
@@ -773,9 +773,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8568b3038a009d43e981a4efa6ebbe69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Rubberband
-  sendDirection: {x: 0, y: 1}
   rubberbandForce: 50
-  inRubberband: 0
+  isInRubberband: 0
   maxTimeSec: 1
   minJumpMod: 0.5
   horizontalExtraForce: 1.5
@@ -803,6 +802,18 @@ MonoBehaviour:
   - {fileID: 1892206591473804548}
   _selectedIndex: 0
   _selector: {fileID: 2221089174290737271}
+--- !u!114 &5701016271366000706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2827239048906252384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 054d154eb225b874997e9c480b1fa7fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDeath
 --- !u!1 &2888932546084368778
 GameObject:
   m_ObjectHideFlags: 0

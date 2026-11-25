@@ -23,15 +23,17 @@ public class GliderHands : AbsGlider
 
     private float _wallTime = 0;
 
-    private bool _canWallGrab = false;
+    public static bool canWallGrab = false;
+
 
     public override void FixedUpdateStrategy() {
         ResetJumps();
+        if (_character.IsGrounded)
+        {
+            _character.m_IsMoveDisabled = false;
+            canWallGrab = true;
+        }
         if (isEnabled) {
-            if (_character.IsGrounded) {
-                _character.m_IsMoveDisabled = false;
-                _canWallGrab = true;
-            }
             if (_isWallGrabbing) {
                 _character.Rigidbody.linearVelocityX += _wallDirection * 0.25f;
                 _character.Rigidbody.AddForceY(GRAB_GRAVITY_COMPENSATION * _character.Rigidbody.gravityScale);
@@ -50,7 +52,7 @@ public class GliderHands : AbsGlider
             if (collision.gameObject.CompareTag("Ground")) {
                 float wallPosition = (collision.GetContact(0).point.x - transform.position.x);
                 _wallDirection = wallPosition / Mathf.Abs(wallPosition);
-                if (_canWallGrab || _wallDirection != _lastWallDirection) _wallTime = 0;
+                if (canWallGrab || _wallDirection != _lastWallDirection) _wallTime = 0;
                 if (_wallGrabRoutine != null) {
                     StopCoroutine(_wallGrabRoutine);
                 }
@@ -146,9 +148,9 @@ public class GliderHands : AbsGlider
 
     private IEnumerator WallGrabStopRoutine()
     {
-        _canWallGrab = false;
+        canWallGrab = false;
         yield return new WaitForSeconds(m_WallGrabRegenCooldownTime);
-        _canWallGrab = true;
+        canWallGrab = true;
     }
 
     private IEnumerator WallJumpTimer() {

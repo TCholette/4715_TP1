@@ -22,7 +22,10 @@ public class ButtonHandler: MonoBehaviour
     private bool _isEnabled;
     private bool _isReady = true;
 
-    private void Awake()
+    [SerializeField] private bool canBeActivated = true;
+    [SerializeField] private bool canBeDeactivated = true;
+
+    private void Start()
     {
         foreach (ToggleWithButton target in targets)
         {
@@ -34,6 +37,11 @@ public class ButtonHandler: MonoBehaviour
             target.Setup(this);
             _allLines.Add(line);
         }
+        PlayerEventManager.OnPlayerDeath += ForceDisable;
+        if (buttonMode == ButtonMode.Base)
+        {
+            PlayerEventManager.OnPlayerCheckpoint += (index) => { startsEnabled = _isEnabled; };
+        }
         if (startsEnabled)
         {
             Activate();
@@ -43,6 +51,32 @@ public class ButtonHandler: MonoBehaviour
             Deactivate();
         }
     }
+
+    private void ForceDisable()
+    {
+        if (buttonMode == ButtonMode.Timer)
+        {
+            interruptTimer = true;
+        }
+        else
+        {
+            if (startsEnabled)
+            {
+                if (!_isEnabled)
+                {
+                    Activate();
+                }
+            }
+            else
+            {
+                if (_isEnabled)
+                {
+                    Deactivate();
+                }
+            }
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -52,11 +86,17 @@ public class ButtonHandler: MonoBehaviour
                 _isReady = false;
                 if (!_isEnabled)
                 {
-                    Activate();
+                    if (canBeActivated)
+                    {
+                        Activate();
+                    }
                 }
                 else
                 {
-                    Deactivate();
+                    if (canBeDeactivated)
+                    {
+                        Deactivate();
+                    }
                 }
             }
         }
@@ -106,8 +146,11 @@ public class ButtonHandler: MonoBehaviour
         }
     }
 
+    bool interruptTimer = false;
+
     private IEnumerator Timer()
     {
+        interruptTimer = false;
         float time = 0;
         timer.gameObject.SetActive(true);
         while (time < closeTimer)
@@ -121,6 +164,10 @@ public class ButtonHandler: MonoBehaviour
             timer.SetPosition(0, new Vector3(transform.position.x - delta, timer.transform.position.y, transform.position.z));
             timer.SetPosition(1, new Vector3(transform.position.x + delta, timer.transform.position.y, transform.position.z));
             yield return null;
+            if (interruptTimer)
+            {
+                break;
+            }
         }
         timer.gameObject.SetActive(false);
         if (!startsEnabled)

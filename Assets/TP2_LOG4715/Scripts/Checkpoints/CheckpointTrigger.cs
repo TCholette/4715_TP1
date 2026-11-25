@@ -10,17 +10,25 @@ public class CheckpointTrigger : MonoBehaviour
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private Sprite activated;
     [SerializeField] private Sprite deactivated;
+    [SerializeField] public Transform startZone;
+    [SerializeField] public int index;
 
     public void Deactivate()
     {
-        sprite.sprite = deactivated;
+        if (sprite != null)
+        {
+            sprite.sprite = deactivated;
+        }
     }
     private void Awake()
     {
         if (_isStartOfLevel)
         {
             CheckPointManager.currentActiveCheckPoint = this;
-            sprite.sprite = activated;
+            if (sprite != null)
+            {
+                sprite.sprite = activated;
+            }
         }
     }
     private void OnTriggerEnter2D(Collider2D collision) 
@@ -28,8 +36,12 @@ public class CheckpointTrigger : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             CheckPointManager.currentActiveCheckPoint.Deactivate();
-            sprite.sprite = activated;
+            if (sprite != null)
+            {
+                sprite.sprite = activated;
+            }
             CheckPointManager.currentActiveCheckPoint = this;
+            PlayerEventManager.Instance.RunCheckpoint(index);
             if (_canBeActivated)
             {
                 _canBeActivated = false;

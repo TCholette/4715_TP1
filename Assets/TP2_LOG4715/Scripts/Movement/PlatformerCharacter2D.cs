@@ -64,6 +64,11 @@ public class PlatformerCharacter2D : MonoBehaviour
     {
         _gliderMechanic.FixedUpdateStrategy();
 
+        if (IsGrounded)
+        {
+            GliderHands.canWallGrab = true;
+        }
+
         Move(m_MoveDirection);
         Jump();
     }

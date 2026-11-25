@@ -157,6 +157,7 @@ MonoBehaviour:
   sprite: {fileID: 8020940660296462591}
   activated: {fileID: -3448120935943364757, guid: d330af81bbbbb4f42b11c51362ae2f14, type: 3}
   deactivated: {fileID: 3301549609868922437, guid: d330af81bbbbb4f42b11c51362ae2f14, type: 3}
+  startZone: {fileID: 3563397060239096757}
 --- !u!114 &1243616996019277336
 MonoBehaviour:
   m_ObjectHideFlags: 0

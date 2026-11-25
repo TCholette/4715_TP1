@@ -11,6 +11,7 @@ public class MovingEnemy : MonoBehaviour
 
 
     bool rewind = false;
+
     void Update()
     {
         if (speed == 0 || cycle == 0)
@@ -73,7 +74,7 @@ public class MovingEnemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.transform.position = CheckPointManager.currentActiveCheckPoint.gameObject.transform.position;
+            collision.gameObject.GetComponent<PlayerEventManager>().RunDeath();
         }
     }
 }
