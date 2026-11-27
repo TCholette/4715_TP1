@@ -3,7 +3,10 @@ using UnityEngine;
 public class CheckpointTrigger : MonoBehaviour
 {
     [SerializeField] private bool _isStartOfLevel = false;
+    [SerializeField] private bool _isNoPoints= false;
     [SerializeField] private bool _isEndOfLevel = false;
+    [SerializeField] private int _maxScoreGain;
+    [SerializeField] private float _timeTolerance;
     private bool _canBeActivated = true;
 
 
@@ -42,7 +45,7 @@ public class CheckpointTrigger : MonoBehaviour
             }
             CheckPointManager.currentActiveCheckPoint = this;
             PlayerEventManager.Instance.RunCheckpoint(index);
-            if (_canBeActivated)
+            if (_canBeActivated && !_isNoPoints)
             {
                 _canBeActivated = false;
                 if (ScoreManager.Instance == null)
@@ -51,7 +54,14 @@ public class CheckpointTrigger : MonoBehaviour
                 }
                 if (!_isEndOfLevel)
                 {
-                    ScoreManager.Instance.LapTimer();
+                    if (_maxScoreGain > 0)
+                    {
+                        ScoreManager.Instance.LapTimer(_maxScoreGain, _timeTolerance);
+                    }
+                    else
+                    {
+                        ScoreManager.Instance.StopTimer();
+                    }
                 }
                 else
                 {

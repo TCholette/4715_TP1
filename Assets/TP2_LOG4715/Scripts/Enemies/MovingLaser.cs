@@ -31,7 +31,6 @@ public class MovingLaser : ToggleWithButton
     }
     private IEnumerator Advance()
     {
-        Debug.LogError("Called advance routine");
         interruptTimer = false;
         while (true)
         {
